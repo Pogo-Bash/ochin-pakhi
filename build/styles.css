@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
   display: flex;
   flex-direction: column;
@@ -11,11 +12,7 @@ body {
   text-align: center;
 }
 
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
-
 
 /* Header Styles */
 header {
@@ -23,7 +20,7 @@ header {
   color: #fff;
   padding: 20px;
   position: relative;
-  z-index: 1;
+  z-index: 2; /* Increase the z-index to ensure header is above other elements */
 }
 
 header h1 {
@@ -33,6 +30,8 @@ header h1 {
 
 nav {
   text-align: center;
+  position: relative;
+  z-index: 1; /* Set a z-index for the nav element */
 }
 
 nav ul {
@@ -61,7 +60,7 @@ nav a:hover {
 
 nav a.active {
   background-color: #c7a024;
-} 
+}
 
 .nav-button {
   display: inline-block;
@@ -84,7 +83,6 @@ nav a.active {
   background-color: #c7a024;
 }
 
-
 /* Main Content Styles */
 main {
   flex: 1;
@@ -96,8 +94,6 @@ main {
   color: #fff;
   text-align: justify;
 }
-
-
 
 main p {
   color: #5c3317;
@@ -144,3 +140,93 @@ main .grid div {
   align-items: center;
 }
 
+main .grid div .content {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 16px;
+  overflow: auto;
+  white-space: pre-wrap;
+  flex-grow: 1;
+}
+
+.main .grid div:nth-child(-n+3) {
+  display: none;
+}
+
+.main .grid div:last-child {
+  align-self: stretch; /* Stretch the last item vertically */
+}
+
+.main .grid div:last-child .content {
+  flex-grow: 1;
+}
+
+/* Arrow Buttons */
+.arrow-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto; /* Push the buttons to the bottom */
+  padding: 20px 0;
+  font-family: 'Josefin Sans', sans-serif; /* Use the same font as other elements */
+}
+
+.arrow-buttons button {
+  background-color: transparent;
+  border: none;
+  font-size: 16px; /* Adjust the font size */
+  color: #c7a024;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.arrow-buttons button:hover {
+  color: #5c3317;
+}
+
+.arrow-buttons button:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.content pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+h2 {
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 3em;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #d4af37;
+  padding: 0.2em 0.4em;
+  display: inline-block;
+  margin: 0.2em auto;
+  background-image: linear-gradient(#5c3317, #d4af37);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  /* Add the following properties to center the h2 element */
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body::before {
+  content: "";
+  background-image: url('./Images/instrument.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  opacity: 0.5; /* replace with your desired opacity value */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1; /* Increase the z-index to ensure the background image is below header */
+}
