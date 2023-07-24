@@ -10,10 +10,10 @@ require('dotenv').config();
 app.get("/", (req, res) => res.sendFile(__dirname + "/build/index.html"));
 app.get("/performance", (req, res) => res.sendFile(__dirname + "/build/performance.html"));
 app.get("/events", (req, res) => res.sendFile(__dirname + "/build/events.html"));
-app.get("/api/data", (req, res) => {
-  const apiKey = process.env.API_KEY;
-  // use the apiKey to fetch data from the API
-});
+app.get("/api/key", (req, res) => {
+    const apiKey = process.env.API_KEY;
+    res.send(`API key is: ${apiKey}`);
+  });
 
 const server = app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
