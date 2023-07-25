@@ -3,8 +3,9 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  font-family: 'Siyam Rupali', sans-serif;  font-weight: 100;
-  line-height: 1.5;
+  font-family: 'Siyam Rupali', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
   margin: 0;
   padding: 0;
   background-color: #f2e4c8;
@@ -15,87 +16,122 @@ body {
 
 /* Header Styles */
 header {
-  background-color: #d4af37;
+  background-image: url('/assets/header.jpg');
+  background-size: cover;
+  background-position: center center;
   color: #fff;
-  padding: 20px;
-  position: relative;
-  z-index: 2; /* Increase the z-index to ensure header is above other elements */
-}
-
-header h1 {
-  margin: 0;
-  text-align: center;
-}
-
-/* Navbar Styles */
-nav {
-  position: fixed; /* Make the navbar fixed */
+  padding: 75px;
+  position: fixed; /* Fix the header at the top */
   top: 0;
   left: 0;
-  width: 100%;
-  background-color: #d4af37;
-  color: #fff;
-  z-index: 2; /* Increase the z-index to ensure the navbar is above other elements */
+  right: 0;
+  z-index: 1000; /* Set a high z-index to keep the header above other elements */
 }
 
-nav ul {
-  display: flex;
-  flex-wrap: wrap; /* Allow the navbar items to wrap */
-  justify-content: center;
+@media screen and (max-width: 600px) {
+  header {
+    padding: 2px; /* Decrease the header padding for smaller screens */
+    height: 150px; /* Adjust the height of the header on smaller screens */
+    top: 0; /* Set a higher top value to prevent the h1 from getting cut off */
+  }
+
+  header h1 {
+    font-size: 1.8em; /* Reduce the font size for the header on smaller screens */
+  }
+}
+header h1 {
   margin: 0;
-  padding: 10px 0;
+  font-family: 'Siyam Rupali', sans-serif;
+  font-size: 2.5em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 20px; /* Add margin at the bottom of the header h1 */
+}
+
+/* Hamburger Styles */
+.hamburger {
+  display: block; /* Show the hamburger icon on all devices */
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  /* Add your styling for the hamburger icon, e.g., padding, background color, etc. */
+}
+
+/* Mobile Navigation Styles */
+.mobile-nav {
+  display: none; /* Hide the mobile navigation menu by default */
+  position: fixed; /* Fix the mobile nav to the top of the screen */
+  top: 80px;
+  right: 0; /* Adjust the horizontal position to the right side of the screen */
+  width: 200px; /* Set a specific width for the navigation menu */
+  background-color: #d4af37; /* Add background color for mobile navigation */
+  z-index: 999; /* Increase the z-index to ensure the mobile nav is above other elements */
+  padding: 20px; /* Add padding for better appearance */
+  border-radius: 5px; /* Add some border radius for a rounded appearance */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width: 600px) {
+  .mobile-nav {
+    /* Other styles... */
+    right: 0; /* Set the mobile navigation menu to the right side of the screen on smaller devices */
+    top: 60px; /* Adjust the top position for smaller screens */
+  }
+}
+
+.mobile-nav ul {
+  display: flex;
+  flex-direction: column; /* Display list items vertically */
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
-nav li {
-  margin: 0 20px;
+.mobile-nav li {
+  margin: 10px 0; /* Add some vertical margin between list items */
 }
 
-nav a {
+.mobile-nav a {
   display: block;
   padding: 10px 20px;
   color: #fff;
   text-decoration: none;
-  transition: background-color 0.3s ease;
-  border-radius: 5px;
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Add transition for both background and border */
+  border-bottom: 2px solid #fff; /* Add a white bottom border to differentiate buttons */
 }
 
-nav a:hover {
+.mobile-nav a:hover,
+.mobile-nav a.active {
   background-color: #c7a024;
 }
 
-nav a.active {
-  background-color: #c7a024;
+.mobile-nav a:not(:last-child) {
+  border-bottom: 2px solid #fff; /* Add white bottom border to all buttons except the last one */
 }
 
-/* Main Content Styles */
+
+.mobile-nav.show {
+  display: block;
+}
+
+/* Add styling for the main content */
+/* Add styling for the main content */
 main {
   flex: 1;
-  min-height: calc(100vh - 60px); /* 100% viewport height minus header and footer height */
+  min-height: calc(100vh - 140px);
   max-width: 800px;
-  margin: 0 auto;
+  margin: 180px auto 20px; /* Add margin-top to push content below the fixed header and nav */
   padding: 20px;
   background-color: #f2e4c8;
   color: #5c3317;
   text-align: justify;
-}
-
-main h2 {
-  font-family: 'Siyam Rupali', sans-serif; /* Use the Bengali font for headings */
-  font-size: 2em;
-  margin-top: 40px;
-}
-
-main p {
-  font-size: 1.2em;
+  padding-top: 50px; /* Add padding to the top of main to prevent content from being covered */
 }
 
 @media screen and (max-width: 600px) {
   /* Adjust the layout for smaller screens */
-  nav li {
-    margin: 0 10px;
-  }
-
   main {
     padding: 10px;
   }
@@ -107,14 +143,20 @@ main p {
   main p {
     font-size: 1em;
   }
+
+  /* Show the mobile navigation menu when the hamburger icon is clicked */
+  .mobile-nav.show {
+    display: block;
+  }
 }
+
 
 footer {
   background-color: #d4af37;
   color: #fff;
   text-align: center;
   padding: 10px;
-  margin-top: auto; /* Push the footer to the bottom */
+  margin-top: auto;
 }
 
 img {
@@ -237,4 +279,44 @@ body::before {
   right: 0;
   bottom: 0;
   z-index: 1; /* Increase the z-index to ensure the background image is below header */
+}
+
+/* Custom Scrollbar Styles */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f2e4c8; /* Set the background color of the scrollbar track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #d4af37; /* Set the color of the scrollbar handle */
+  border-radius: 5px; /* Add some border-radius for a rounded appearance */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #c7a024; /* Set the color of the scrollbar handle on hover */
+}
+
+.speaker {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.image-container {
+  max-width: 100%; 
+  max-height: 50;/* Set the maximum width of the container */
+  margin: 0 auto; /* Center the container horizontally */
+  overflow: hidden; /* Hide any overflow of the image */
+}
+
+.image-container img {
+  width: 100%; /* Set the width of the image to fill the container */
+  height: 10%; /* Preserve the aspect ratio of the image */
 }
