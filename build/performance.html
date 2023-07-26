@@ -95,18 +95,16 @@
       }
 
       async function getApiToken() {
-        const tokenResponse = await fetch('/api');
+        const tokenResponse = await fetch('/api/key');
         const token = await tokenResponse.text();
         return token.trim();
       }
 
       async function sendAPIRequest(order, token) {
-        const url = `https://pogo-bash-obscure-funicular-jgxp465pjxxh54xw-1337.preview.app.github.dev/api/ochin-pakhis/${order}`;
+        const url = `https://strapi-ru2c.onrender.com/api/ochin-pakhis/${order}`;
         const options = {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          
         };
 
         try {
@@ -114,7 +112,7 @@
 
           if (response.ok) {
             const json = await response.json();
-            const title = json.data.attributes.Name;
+            const title = json.data.attributes.title;
             const videoLink = json.data.attributes.link;
             const publishedAt = json.data.attributes.publishedAt;
 
