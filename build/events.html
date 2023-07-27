@@ -118,7 +118,7 @@
             const json = await response.json();
             const title = json.data.attributes.Name;
             const publishedAt = json.data.attributes.publishedAt;
-            const timing = json.data.attributes.timing; // Additional JSON data
+            const timing = json.data.attributes.Timing; // Additional JSON data
             const description = json.data.attributes.description; // Additional JSON data
 
             return {
