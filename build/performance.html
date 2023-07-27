@@ -43,14 +43,14 @@
         mobileNav.classList.toggle('show');
       });
     });
-
+  
     window.addEventListener("DOMContentLoaded", async function() {
       let x = 1;
       let n = 9; // Specify the total number of orders (change it according to your requirement)
       const apiToken = await getApiToken();
-
+  
       let orderData = []; // Array to store order data
-
+  
       async function fetchOrders() {
         orderData.length = 0; // Clear the orderData array
         for (let i = x; i <= n; i++) {
@@ -60,62 +60,62 @@
             orderData.push(response);
           }
         }
-
+  
         // Sort orderData based on publishedAt value
         orderData.sort((a, b) => {
           const publishedAtA = new Date(a.publishedAt);
           const publishedAtB = new Date(b.publishedAt);
           return publishedAtB - publishedAtA;
         });
-
+  
         // Generate divs in the sorted order
         document.querySelector('.grid').innerHTML = ''; // Clear previous content
         orderData.forEach(order => {
           const title = order.title;
           const videoLink = order.videoLink;
-
+  
           const embedUrl = getEmbedUrl(videoLink);
-
+  
           const iframe = document.createElement('iframe');
           iframe.width = "375";
           iframe.height = "275";
           iframe.src = embedUrl;
           iframe.frameBorder = "0";
           iframe.allowFullscreen = true;
-
+  
           const newDiv = document.createElement('div');
           newDiv.classList.add('content');
           newDiv.innerHTML = `<h4>${title}</h4>`;
           newDiv.appendChild(iframe);
-
+  
           document.querySelector('.grid').appendChild(newDiv);
         });
-
+  
         updateButtonStates(); // Update the button states after fetching new orders
+        updateIframeBlur(); // Add blur effect to iframes
       }
-
+  
       async function getApiToken() {
         const tokenResponse = await fetch('/api/key');
         const token = await tokenResponse.text();
         return token.trim();
       }
-
+  
       async function sendAPIRequest(order, token) {
         const url = `https://strapi-ru2c.onrender.com/api/ochin-pakhis/${order}`;
         const options = {
           method: "GET",
-          
         };
-
+  
         try {
           const response = await fetch(url, options);
-
+  
           if (response.ok) {
             const json = await response.json();
             const title = json.data.attributes.title;
             const videoLink = json.data.attributes.link;
             const publishedAt = json.data.attributes.publishedAt;
-
+  
             return {
               title,
               videoLink,
@@ -130,7 +130,7 @@
           console.error("API request failed for order", order, ". Error:", error);
         }
       }
-
+  
       function getEmbedUrl(url) {
         const watchRegex = /(?:\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/;
         const match = url.match(watchRegex);
@@ -140,13 +140,13 @@
         }
         return url; // If the URL doesn't match the watch format, return the original URL
       }
-
+  
       function updateButtonStates() {
         const prevButton = document.getElementById("prevButton");
         const nextButton = document.getElementById("nextButton");
-
+  
         prevButton.disabled = x === 1; // Disable previous button if x is 1
-
+  
         prevButton.addEventListener("click", function() {
           if (x > 1) {
             x -= 9;
@@ -154,14 +154,28 @@
             fetchOrders();
           } 
         });
-
+  
         nextButton.addEventListener("click", function() {
           x += 9;
           n += 9;
           fetchOrders();
         });
       }
-
+  
+      function updateIframeBlur() {
+        const iframes = document.querySelectorAll(".grid div iframe");
+        iframes.forEach(iframe => {
+          iframe.style.filter = "blur(8px)"; // Add the blur effect to the iframes
+          iframe.addEventListener("load", function() {
+            iframe.style.filter = "none"; // Remove the blur effect once the iframe is loaded
+          });
+          if (iframe.classList.contains("loaded")) {
+            // If the iframe is already loaded (e.g., from cache), remove the blur immediately
+            iframe.style.filter = "none";
+          }
+        });
+      }
+  
       fetchOrders(); // Fetch orders on page load
     });
   </script>
