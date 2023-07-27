@@ -105,12 +105,10 @@
       }
 
       async function sendAPIRequest(order, token) {
-        const url = `http://localhost:1337/api/events/${order}`; // Updated API endpoint
+        const url = `https://strapi-ru2c.onrender.com/api/events/${order}`; // Updated API endpoint
         const options = {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          
         };
 
         try {
