@@ -219,7 +219,7 @@ main .grid div .content {
   align-items: center;
   margin-top: auto; /* Push the buttons to the bottom */
   padding: 20px 0;
-  font-family: 'Josefin Sans', sans-serif; /* Use the same font as other elements */
+  font-family: 'Siyam Rupali', sans-serif; /* Use the same font as other elements */
 }
 
 .arrow-buttons button {
@@ -248,7 +248,7 @@ main .grid div .content {
 }
 
 h2 {
-  font-family: 'Bubblegum Sans', cursive;
+  font-family: 'Siyam Rupali', sans-serif;
   font-size: 3em;
   text-align: center;
   text-transform: uppercase;
