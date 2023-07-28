@@ -15,6 +15,7 @@
 
 <body>
   <header>
+    <h1>Welcome To Ochin Pakhi</h1>
     <div class="hamburger">&#9776;</div> <!-- Hamburger icon -->
     <nav class="mobile-nav"> <!-- Mobile navigation - initially hidden -->
       <ul>
@@ -28,6 +29,10 @@
   </header>
 
 <main>
+  <h2>Newest Event</h2>
+  <div class="index">
+
+  </div>
   <h2>About Us</h2>
   <p>
     Ochin Pakhi, a Bengali music band from Chicago, is a group of spiritually motivated, fun-loving musicians who perform different styles of folk songs from West Bengal and Bangladesh.
@@ -41,10 +46,7 @@
     The mission of Ochin Pakhi is to present songs with colorful melodies and eclectic rhythm from greater Bengal to the world. Its members are intensely collaborative and create a cross-cultural platform. Ochin Pakhi is an endless journey of music: on one hand, it bears strong tradition, and on the other, it carries forth beyond all cultural boundaries.
   </p>
 
-  <h2>Newest Event</h2>
-  <div class="grid">
-
-  </div>
+  
 
 </main>
 
@@ -90,8 +92,8 @@
       newDiv.appendChild(timingPre);
       newDiv.appendChild(descriptionPre);
 
-      document.querySelector('.grid').innerHTML = ''; // Clear previous content
-      document.querySelector('.grid').appendChild(newDiv);
+      document.querySelector('.index').innerHTML = ''; 
+      document.querySelector('.index').appendChild(newDiv);
     }
 
     async function getApiToken() {

@@ -164,6 +164,15 @@ img {
   margin: 0 auto;
 }
 
+main {
+  text-align: center; /* Center the content within main */
+}
+
+main h2 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Div Styles */
 main .grid {
   display: grid;
@@ -326,4 +335,52 @@ body::before {
 main .grid div iframe {
   filter: blur(8px); /* Adjust the blur amount as needed */
   transition: filter 0.5s ease; /* Add a transition for a smooth effect */
+}
+
+main .index {
+
+  display: grid;
+  grid-gap: 40px;
+  max-width: 800px;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+main .index div {
+
+  background-color: #c7a024;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-radius: 5px;
+  width: 700px;
+  min-height: 500px; /* Adjust the minimum height as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+main .index div .content {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 16px;
+  overflow: auto;
+  white-space: pre-wrap;
+  flex-grow: 1;
+}
+
+.main .index div:nth-child(-n+3) {
+  display: none;
+}
+
+.main .index div:last-child {
+  align-self: stretch; /* Stretch the last item vertically */
+}
+
+.main .index div:last-child .content {
+  flex-grow: 1;
 }
