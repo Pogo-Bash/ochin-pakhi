@@ -159,6 +159,33 @@
 
     fetchNewestEvent(); // Fetch the newest event on page load
   });
+
+  function adjustLayout() {
+      const assumedNormalScreenWidth = 21; // Assumed normal screen size in inches
+      const currentScreenWidth = window.innerWidth; // Get the current screen width in pixels
+
+      // Calculate the ratio between current screen width and assumed normal screen width
+      const widthRatio = currentScreenWidth / (assumedNormalScreenWidth * 96); // 1 inch = 96 pixels
+
+      // You can adjust different elements based on the calculated widthRatio
+      // For example:
+      const headerElement = document.querySelector('header');
+      const mainElement = document.querySelector('main');
+      const footerElement = document.querySelector('footer');
+
+      // Modify the font size of header, main, and footer elements
+      headerElement.style.fontSize = `${widthRatio * 16}px`; // Assuming 16px as the default font size
+      mainElement.style.fontSize = `${widthRatio * 16}px`; // Assuming 14px as the default font size
+      footerElement.style.fontSize = `${widthRatio * 16}px`; // Assuming 12px as the default font size
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Your existing code for the hamburger menu
+
+      // Call the adjustLayout function on page load and window resize
+      window.addEventListener('load', adjustLayout);
+      window.addEventListener('resize', adjustLayout);
+    });
 </script>
 </body>
 
