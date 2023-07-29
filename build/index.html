@@ -159,33 +159,53 @@
 
     fetchNewestEvent(); // Fetch the newest event on page load
   });
+  
+  function adjustSizes() {
+      const screenWidth = window.innerWidth;
+      const header = document.querySelector('header');
+      const headerH1 = document.querySelector('header h1');
+      const hamburger = document.querySelector('.hamburger');
+      const mobileNav = document.querySelector('.mobile-nav');
 
-  function adjustLayout() {
-      const assumedNormalScreenWidth = 21; // Assumed normal screen size in inches
-      const currentScreenWidth = window.innerWidth; // Get the current screen width in pixels
+      if (screenWidth <= 600) {
+        // Adjust text size for smaller screens
+        document.body.style.fontSize = '14px';
 
-      // Calculate the ratio between current screen width and assumed normal screen width
-      const widthRatio = currentScreenWidth / (assumedNormalScreenWidth * 96); // 1 inch = 96 pixels
+        // Adjust header styles for smaller screens
+        header.style.padding = '20px';
+        header.style.height = '100px';
 
-      // You can adjust different elements based on the calculated widthRatio
-      // For example:
-      const headerElement = document.querySelector('header');
-      const mainElement = document.querySelector('main');
-      const footerElement = document.querySelector('footer');
+        // Adjust header h1 styles for smaller screens
+        headerH1.style.fontSize = '1.5em';
+        headerH1.style.marginBottom = '10px';
 
-      // Modify the font size of header, main, and footer elements
-      headerElement.style.fontSize = `${widthRatio * 16}px`; // Assuming 16px as the default font size
-      mainElement.style.fontSize = `${widthRatio * 16}px`; // Assuming 14px as the default font size
-      footerElement.style.fontSize = `${widthRatio * 16}px`; // Assuming 12px as the default font size
+        // Adjust mobile navigation styles for smaller screens
+        mobileNav.style.top = '50px';
+        mobileNav.style.right = '5px';
+        mobileNav.style.width = '160px';
+      } else {
+        // Reset to default text and element sizes for larger screens
+        document.body.style.fontSize = '16px';
+
+        // Reset header styles for larger screens
+        header.style.padding = '50px';
+        header.style.height = 'auto';
+
+        // Reset header h1 styles for larger screens
+        headerH1.style.fontSize = '2em';
+        headerH1.style.marginBottom = '10px';
+
+        // Hide mobile navigation for larger screens
+        mobileNav.classList.remove('show');
+      }
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      // Your existing code for the hamburger menu
+    // Call the adjustSizes() function on page load
+    window.addEventListener('DOMContentLoaded', adjustSizes);
 
-      // Call the adjustLayout function on page load and window resize
-      window.addEventListener('load', adjustLayout);
-      window.addEventListener('resize', adjustLayout);
-    });
+    // Call the adjustSizes() function whenever the window is resized
+    window.addEventListener('resize', adjustSizes);
+
 </script>
 </body>
 
