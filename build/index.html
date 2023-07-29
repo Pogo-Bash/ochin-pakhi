@@ -46,8 +46,6 @@
     The mission of Ochin Pakhi is to present songs with colorful melodies and eclectic rhythm from greater Bengal to the world. Its members are intensely collaborative and create a cross-cultural platform. Ochin Pakhi is an endless journey of music: on one hand, it bears strong tradition, and on the other, it carries forth beyond all cultural boundaries.
   </p>
 
-  
-
 </main>
 
 <script>
@@ -61,16 +59,26 @@
   });
 
   window.addEventListener("DOMContentLoaded", async function() {
-    const apiToken = await getApiToken();
+  const apiToken = await getApiToken();
+  let url; // Declare the "url" variable in the outer scope
 
-    async function fetchNewestEvent() {
-      const newestEvent = await sendAPIRequest('1', apiToken); // Fetch the newest event (API endpoint is /api/events/1)
-      if (newestEvent) {
-        renderEvent(newestEvent);
-      }
+  async function fetchNewestEvent() {
+    console.log("Fetching data..."); // Add a log statement indicating data fetching
+    const newestEvent = await sendAPIRequest('1', apiToken); // Fetch the newest event (API endpoint is /api/events/1)
+    if (newestEvent) {
+      console.log("Title:", newestEvent.title);
+      console.log("Published At:", newestEvent.publishedAt);
+      console.log("Timing:", newestEvent.timing);
+      console.log("Description:", newestEvent.description);
+      console.log("URL:", newestEvent.url);
+      renderEvent(newestEvent);
+      console.log("Data fetched successfully!"); // Add a log statement indicating data fetched successfully
     }
+  }
 
-    function renderEvent(event) {
+  function renderEvent(event) {
+      document.querySelector('.index').innerHTML = ''; // Clear the .index div before appending new content
+
       const title = event.title;
       const publishedAt = formatDate(event.publishedAt);
       const timing = event.timing;
@@ -89,10 +97,15 @@
       descriptionPre.style.textAlign = 'justify';
       descriptionPre.style.textJustify = 'inter-word';
 
+      const image = document.createElement('img');
+      const imageUrl = `https://strapi-ru2c.onrender.com${event.url}`;
+      image.src = imageUrl;
+      image.alt = "Event Poster";
+      newDiv.appendChild(image); // Append the image to the newDiv element
+
       newDiv.appendChild(timingPre);
       newDiv.appendChild(descriptionPre);
 
-      document.querySelector('.index').innerHTML = ''; 
       document.querySelector('.index').appendChild(newDiv);
     }
 
@@ -103,7 +116,7 @@
     }
 
     async function sendAPIRequest(order, token) {
-      const url = `https://strapi-ru2c.onrender.com/api/events/${order}`; // Updated API endpoint
+      const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`; // Updated API endpoint
       const options = {
         method: "GET",
       };
@@ -117,12 +130,14 @@
           const publishedAt = json.data.attributes.publishedAt;
           const timing = json.data.attributes.Timing; // Additional JSON data
           const description = json.data.attributes.description; // Additional JSON data
+          const url = json.data.attributes.poster.data.attributes.url;
 
           return {
             title,
             publishedAt,
             timing,
-            description
+            description,
+            url
           };
         } else if (response.status === 404) {
           console.error("API request failed for order", order, ". Error:", response.status);
