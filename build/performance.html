@@ -35,71 +35,67 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const hamburger = document.querySelector('.hamburger');
-      const mobileNav = document.querySelector('.mobile-nav');
-  
-      hamburger.addEventListener('click', function() {
-        mobileNav.classList.toggle('show');
-      });
+      document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileNav = document.querySelector('.mobile-nav');
+
+    hamburger.addEventListener('click', function() {
+      mobileNav.classList.toggle('show');
     });
-  
-    window.addEventListener("DOMContentLoaded", async function() {
-      let x = 1;
-      let n = 9; // Specify the total number of orders (change it according to your requirement)
-      const apiToken = await getApiToken();
-  
-      let orderData = []; // Array to store order data
-  
-      async function fetchOrders() {
-        orderData.length = 0; // Clear the orderData array
-        for (let i = x; i <= n; i++) {
-          const order = i;
-          const response = await sendAPIRequest(order, apiToken);
-          if (response) {
-            orderData.push(response);
-          }
-        }
-  
-        // Sort orderData based on publishedAt value
-        orderData.sort((a, b) => {
-          const publishedAtA = new Date(a.publishedAt);
-          const publishedAtB = new Date(b.publishedAt);
-          return publishedAtB - publishedAtA;
-        });
-  
-        // Generate divs in the sorted order
-        document.querySelector('.grid').innerHTML = ''; // Clear previous content
-        orderData.forEach(order => {
-          const title = order.title;
-          const videoLink = order.videoLink;
-  
+  });
+
+  window.addEventListener("DOMContentLoaded", async function() {
+    const apiToken = await getApiToken();
+    let x = 1;
+    let n = 20; // Specify the total number of orders (change it according to your requirement)
+    let orderData = []; // Array to store order data
+    let totalGridDivs = 0; // Variable to track the total number of grid divs
+
+    async function fetchOrders() {
+      orderData.length = 0; // Clear the orderData array
+      for (let i = x; i <= n; i++) {
+        const order = i;
+        const response = await sendAPIRequest(order, apiToken);
+        if (response) {
+          orderData.push(response);
+
+          // Create and insert the iframe for the current order's data at the beginning of the grid
+          const title = response.title;
+          const videoLink = response.videoLink;
           const embedUrl = getEmbedUrl(videoLink);
-  
+
           const iframe = document.createElement('iframe');
           iframe.width = "375";
           iframe.height = "275";
           iframe.src = embedUrl;
           iframe.frameBorder = "0";
           iframe.allowFullscreen = true;
-  
+
           const newDiv = document.createElement('div');
           newDiv.classList.add('content');
           newDiv.innerHTML = `<h4>${title}</h4>`;
           newDiv.appendChild(iframe);
-  
-          document.querySelector('.grid').appendChild(newDiv);
-        });
-  
-        updateButtonStates(); // Update the button states after fetching new orders
-        updateIframeBlur(); // Add blur effect to iframes
+
+          const grid = document.querySelector('.grid');
+          grid.insertBefore(newDiv, grid.firstChild);
+
+          totalGridDivs++; // Increment the totalGridDivs variable
+
+          if (totalGridDivs === 9) {
+            // Stop fetching new orders when there are 9 grid divs
+            break;
+          }
+        }
       }
-  
-      async function getApiToken() {
-        const tokenResponse = await fetch('/api/key');
-        const token = await tokenResponse.text();
-        return token.trim();
-      }
+
+      updateButtonStates(); // Update the button states after fetching new orders
+    }
+
+    async function getApiToken() {
+      const tokenResponse = await fetch('/api/key');
+      const token = await tokenResponse.text();
+      return token.trim();
+    }
   
       async function sendAPIRequest(order, token) {
         const url = `https://strapi-ru2c.onrender.com/api/ochin-pakhis/${order}`;
