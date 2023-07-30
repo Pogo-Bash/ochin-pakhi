@@ -33,6 +33,7 @@ header {
   header {
     padding: 20px; /* Increase header padding for smaller screens */
     height: 100px; /* Reduce the header height for smaller screens */
+
   }
 
   header h1 {
@@ -380,4 +381,121 @@ main .index div .content {
 
 .main .index div:last-child .content {
   flex-grow: 1;
+}
+
+/* Normal Styles */
+/* ... (existing styles) ... */
+
+/* Media Query for Smaller Screens */
+@media screen and (max-width: 600px) {
+  /* Header Styles */
+  header {
+    padding: 20px; /* Increase header padding for smaller screens */
+    height: 100px; /* Reduce the header height for smaller screens */
+  }
+
+  header h1 {
+    font-size: 1.5em; /* Decrease the font size for the header on smaller screens */
+    margin-bottom: 10px; /* Reduce margin bottom for header h1 on smaller screens */
+  }
+
+  /* Mobile Navigation Styles */
+  .mobile-nav {
+    top: 50px; /* Adjust the top position for smaller screens */
+    right: 5px; /* Adjust the right position for better alignment on smaller screens */
+    width: 160px; /* Reduce the width of the navigation menu for smaller screens */
+  }
+
+  /* H2 element */
+  main h2 {
+    font-size: 1.8em; /* Increase the font size for h2 on smaller screens */
+  }
+
+  /* Paragraphs */
+  main p {
+    font-size: 1em; /* Adjust the font size for paragraphs on smaller screens */
+  }
+
+  /* Grid item content */
+  main .grid div .content {
+    font-size: 14px; /* Adjust the font size for grid item content on smaller screens */
+  }
+
+  /* Index item content */
+  main .index div .content {
+    font-size: 14px; /* Adjust the font size for index item content on smaller screens */
+  }
+
+  /* Arrow Buttons */
+  .arrow-buttons button {
+    font-size: 14px; /* Adjust the font size for arrow buttons on smaller screens */
+  }
+
+  /* ... (add more adjustments for other elements as needed) ... */
+}
+
+/* Additional Media Query for Desktop Screens (Optional) */
+@media screen and (min-width: 601px) {
+  /* Header Styles */
+  header {
+    padding: 50px; /* Restore header padding for larger screens */
+    height: auto; /* Restore the header height for larger screens */
+  }
+
+  header h1 {
+    font-size: 2em; /* Restore the font size for the header on larger screens */
+    margin-bottom: 10px; /* Restore margin bottom for header h1 on larger screens */
+  }
+
+  /* Mobile Navigation Styles */
+  .mobile-nav {
+    /* Keep the same styles as the normal CSS for desktop screens */
+  }
+
+  /* H2 element */
+  main h2 {
+    font-size: 3em; /* Increase the font size for h2 on larger screens */
+  }
+
+  /* Paragraphs */
+  main p {
+    font-size: 1.2em; /* Adjust the font size for paragraphs on larger screens */
+  }
+
+  /* Grid item content */
+  main .grid div .content {
+    font-size: 16px; /* Adjust the font size for grid item content on larger screens */
+  }
+
+  /* Index item content */
+  main .index div .content {
+    font-size: 16px; /* Adjust the font size for index item content on larger screens */
+  }
+
+  /* Arrow Buttons */
+  .arrow-buttons button {
+    font-size: 16px; /* Adjust the font size for arrow buttons on larger screens */
+  }
+
+  /* ... (add more adjustments for other elements as needed) ... */
+
+  /* Additional font size adjustments for desktop view */
+  /* For example: */
+
+  /* Footer Styles */
+  footer {
+    font-size: 14px; /* Adjust the font size for footer content on larger screens */
+  }
+
+  /* Main content paragraphs */
+  main p {
+    font-size: 18px; /* Adjust the font size for main content paragraphs on larger screens */
+  }
+
+  /* Image captions */
+  .image-container figcaption {
+    font-size: 12px; /* Adjust the font size for image captions on larger screens */
+  }
+
+  /* ... (continue adding font size adjustments for other elements on larger screens) ... */
 }
