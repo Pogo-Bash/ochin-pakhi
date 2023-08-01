@@ -231,6 +231,7 @@ main .grid div .content {
 }
 
 .arrow-buttons button {
+  z-index: 1100;
   background-color: transparent;
   border: none;
   font-size: 16px; /* Adjust the font size */
