@@ -3,21 +3,22 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ochin Pakhi</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap" rel="stylesheet">
   <style>
-
+    /* Add your additional styles here */
   </style>
 </head>
 
 <body>
   <header>
     <h1>Welcome To Ochin Pakhi</h1>
-    <div class="hamburger">&#9776;</div> <!-- Hamburger icon -->
-    <nav class="mobile-nav"> <!-- Mobile navigation - initially hidden -->
+    <div class="hamburger">&#9776;</div>
+    <nav class="mobile-nav">
       <ul>
         <li><a href="index.html" class="nav-button">Home</a></li>
         <li><a href="performance.html" class="nav-button">Performances</a></li>
@@ -28,139 +29,160 @@
     </nav>
   </header>
 
-<main>
-  <h2>Newest Event</h2>
-  <div class="index">
+  <main>
+    <h2>Newest Event</h2>
+    <div class="index"></div>
 
-  </div>
-  <h2>About Us</h2>
-  <p>
-    Ochin Pakhi, a Bengali music band from Chicago, is a group of spiritually motivated, fun-loving musicians who perform different styles of folk songs from West Bengal and Bangladesh.
-    "Ochin Pakhi" (অচিন পাখি) is a Bengali phrase that translates to “The unknown bird” and refers to the heart. This phrase was first used by Lalon Fakir (Shah), a prominent Bengali philosopher, Baul saint, mystic, songwriter, and social reformer, in one of his famous songs “Khachar Bhitor Ochin Pakhi” (খাঁচার ভিতর অচিন পাখি).
-  </p>
-  <div class="image-container">
-    <img src="/assets/folkinstru.png" alt="Folk Instruments">
-  </div>
-  <p>
-    Ochin Pakhi performs folk songs from West Bengal, India, and Bangladesh; they have performed: Rabindra Sangeet (Songs of Rabindranath Tagore), Nazrul Geeti (Songs of Kazi Nazrul Islam), Baul-Fakiri (the traditional songs of the Baul-Fakir community in Bengal), Bhatiyali (boatman songs), Jhumur (melodies from the western part of Bengal), and original compositions. Pieces are performed with ethnic instruments, including ektara, dubki, khol, tabla, manjira, khamak, bansuri, dholak, banjo, and other drums.
-    The mission of Ochin Pakhi is to present songs with colorful melodies and eclectic rhythm from greater Bengal to the world. Its members are intensely collaborative and create a cross-cultural platform. Ochin Pakhi is an endless journey of music: on one hand, it bears strong tradition, and on the other, it carries forth beyond all cultural boundaries.
-  </p>
+    <h2>About Us</h2>
+    <p>
+      Ochin Pakhi, a Bengali music band from Chicago, is a group of spiritually motivated, fun-loving musicians who perform
+      different styles of folk songs from West Bengal and Bangladesh.
+      "Ochin Pakhi" (অচিন পাখি) is a Bengali phrase that translates to “The unknown bird” and refers to the heart. This
+      phrase was first used by Lalon Fakir (Shah), a prominent Bengali philosopher, Baul saint, mystic, songwriter, and
+      social reformer, in one of his famous songs “Khachar Bhitor Ochin Pakhi” (খাঁচার ভিতর অচিন পাখি).
+    </p>
 
-</main>
+    <div class="image-container">
+      <img src="/assets/folkinstru.png" alt="Folk Instruments">
+    </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const mobileNav = document.querySelector('.mobile-nav');
+    <p>
+      Ochin Pakhi performs folk songs from West Bengal, India, and Bangladesh; they have performed: Rabindra Sangeet (Songs
+      of Rabindranath Tagore), Nazrul Geeti (Songs of Kazi Nazrul Islam), Baul-Fakiri (the traditional songs of the Baul-Fakir
+      community in Bengal), Bhatiyali (boatman songs), Jhumur (melodies from the western part of Bengal), and original compositions.
+      Pieces are performed with ethnic instruments, including ektara, dubki, khol, tabla, manjira, khamak, bansuri, dholak,
+      banjo, and other drums.
+      The mission of Ochin Pakhi is to present songs with colorful melodies and eclectic rhythm from greater Bengal to the world.
+      Its members are intensely collaborative and create a cross-cultural platform. Ochin Pakhi is an endless journey of music: on
+      one hand, it bears strong tradition, and on the other, it carries forth beyond all cultural boundaries.
+    </p>
+  </main>
 
-    hamburger.addEventListener('click', function() {
-      mobileNav.classList.toggle('show');
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileNav = document.querySelector('.mobile-nav');
+
+      hamburger.addEventListener('click', function () {
+        mobileNav.classList.toggle('show');
+      });
     });
-  });
 
-  window.addEventListener("DOMContentLoaded", async function() {
-  const apiToken = await getApiToken();
-  let url; // Declare the "url" variable in the outer scope
+    window.addEventListener("DOMContentLoaded", async function () {
+      const apiToken = await getApiToken();
+      let order = 1;
+      let fetchedEvent = false; // Track whether an event has been fetched
 
-  async function fetchNewestEvent() {
-    console.log("Fetching data..."); // Add a log statement indicating data fetching
-    const newestEvent = await sendAPIRequest('1', apiToken); // Fetch the newest event (API endpoint is /api/events/1)
-    if (newestEvent) {
-      console.log("Title:", newestEvent.title);
-      console.log("Published At:", newestEvent.publishedAt);
-      console.log("Timing:", newestEvent.timing);
-      console.log("Description:", newestEvent.description);
-      console.log("URL:", newestEvent.url);
-      renderEvent(newestEvent);
-      console.log("Data fetched successfully!"); // Add a log statement indicating data fetched successfully
-    }
-  }
-
-  function renderEvent(event) {
-      document.querySelector('.index').innerHTML = ''; // Clear the .index div before appending new content
-
-      const title = event.title;
-      const publishedAt = formatDate(event.publishedAt);
-      const timing = event.timing;
-      const description = event.description;
-
-      const newDiv = document.createElement('div');
-      newDiv.classList.add('content');
-      newDiv.innerHTML = `<h4>${title}</h4>`;
-
-      const timingPre = document.createElement('pre');
-      timingPre.textContent = `Timing: ${publishedAt}`;
-      timingPre.style.textAlign = 'center';
-
-      const descriptionPre = document.createElement('pre');
-      descriptionPre.textContent = `Description: ${description}`;
-      descriptionPre.style.textAlign = 'justify';
-      descriptionPre.style.textJustify = 'inter-word';
-
-      const image = document.createElement('img');
-      const imageUrl = `https://strapi-ru2c.onrender.com${event.url}`;
-      image.src = imageUrl;
-      image.alt = "Event Poster";
-      newDiv.appendChild(image); // Append the image to the newDiv element
-
-      newDiv.appendChild(timingPre);
-      newDiv.appendChild(descriptionPre);
-
-      document.querySelector('.index').appendChild(newDiv);
-    }
-
-    async function getApiToken() {
-      const tokenResponse = await fetch('/api');
-      const token = await tokenResponse.text();
-      return token.trim();
-    }
-
-    async function sendAPIRequest(order, token) {
-      const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`; // Updated API endpoint
-      const options = {
-        method: "GET",
-      };
-
-      try {
-        const response = await fetch(url, options);
-
-        if (response.ok) {
-          const json = await response.json();
-          const title = json.data.attributes.Name;
-          const publishedAt = json.data.attributes.publishedAt;
-          const timing = json.data.attributes.Timing; // Additional JSON data
-          const description = json.data.attributes.description; // Additional JSON data
-          const url = json.data.attributes.poster.data.attributes.url;
-
-          return {
-            title,
-            publishedAt,
-            timing,
-            description,
-            url
-          };
-        } else if (response.status === 404) {
-          console.error("API request failed for order", order, ". Error:", response.status);
-        } else {
-          console.error("API request failed for order", order, ". Error:", response.status);
+      async function fetchNewestEvent() {
+        if (!fetchedEvent) {
+          console.log("Fetching data for order", order, "...");
+          try {
+            const newestEvent = await sendAPIRequest(order, apiToken);
+            if (newestEvent) {
+              console.log("Title:", newestEvent.title);
+              console.log("Published At:", newestEvent.publishedAt);
+              console.log("Timing:", newestEvent.timing);
+              console.log("Description:", newestEvent.description);
+              console.log("URL:", newestEvent.url);
+              renderEvent(newestEvent);
+              fetchedEvent = true; // Set fetchedEvent to true after successfully fetching an event
+              console.log("Data fetched successfully for order", order, "!");
+            } else {
+              order++;
+              fetchNewestEvent();
+            }
+          } catch (error) {
+            console.error("Error fetching event for order", order, ":", error);
+            order++;
+            fetchNewestEvent();
+          }
         }
-      } catch (error) {
-        console.error("API request failed for order", order, ". Error:", error);
       }
-    }
 
-    function formatDate(dateString) {
-      const date = new Date(dateString);
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    }
+      function renderEvent(event) {
+        const indexDiv = document.querySelector('.index');
+        indexDiv.innerHTML = '';
 
-    fetchNewestEvent(); // Fetch the newest event on page load
-  });
-  
-  function adjustSizes() {
+        const { title, publishedAt, timing, description, url } = event;
+
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('content');
+        newDiv.innerHTML = `<h4>${title}</h4>`;
+
+        const timingPre = document.createElement('pre');
+        timingPre.textContent = `Timing: ${publishedAt}`;
+        timingPre.style.textAlign = 'center';
+
+        const descriptionPre = document.createElement('pre');
+        descriptionPre.textContent = `Description: ${description}`;
+        descriptionPre.style.textAlign = 'justify';
+        descriptionPre.style.textJustify = 'inter-word';
+
+        if (url) {
+          const image = document.createElement('img');
+          image.src = url;
+          image.alt = "Event Poster";
+          newDiv.appendChild(image);
+        }
+
+        newDiv.appendChild(timingPre);
+        newDiv.appendChild(descriptionPre);
+
+        indexDiv.appendChild(newDiv);
+      }
+
+      async function getApiToken() {
+        const tokenResponse = await fetch('/api');
+        const token = await tokenResponse.text();
+        return token.trim();
+      }
+
+      async function sendAPIRequest(order, token) {
+        const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`; // Updated API endpoint
+        const options = {
+          method: "GET",
+        };
+
+        try {
+          const response = await fetch(url, options);
+
+          if (response.ok) {
+            const json = await response.json();
+            const title = json.data.attributes.Name;
+            const publishedAt = json.data.attributes.publishedAt;
+            const timing = json.data.attributes.Timing; // Additional JSON data
+            const description = json.data.attributes.description; // Additional JSON data
+            const url = json.data.attributes.poster?.data?.attributes.url || '';
+
+            return {
+              title,
+              publishedAt,
+              timing,
+              description,
+              url
+            };
+          } else if (response.status === 404) {
+            console.error("API request failed for order", order, ". Error:", response.status);
+          } else {
+            console.error("API request failed for order", order, ". Error:", response.status);
+          }
+        } catch (error) {
+          console.error("API request failed for order", order, ". Error:", error);
+        }
+      }
+
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+
+      fetchNewestEvent(); // Fetch the newest event on page load
+    });
+
+    function adjustSizes() {
       const screenWidth = window.innerWidth;
       const header = document.querySelector('header');
       const headerH1 = document.querySelector('header h1');
@@ -205,8 +227,7 @@
 
     // Call the adjustSizes() function whenever the window is resized
     window.addEventListener('resize', adjustSizes);
-
-</script>
+  </script>
 </body>
 
 </html>

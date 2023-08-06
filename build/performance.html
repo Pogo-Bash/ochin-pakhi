@@ -13,6 +13,7 @@
 </head>
 <body>
   <header>
+    <h1>Our Performances</h1>
     <div class="hamburger">&#9776;</div> <!-- Hamburger icon -->
     <nav class="mobile-nav"> <!-- Mobile navigation - initially hidden -->
       <ul>
@@ -27,8 +28,9 @@
 
 <main>
   <div class="grid">
-
+    <!-- Divs for initial content will be created here -->
   </div>
+  <div class="scroll-icon" style="display: none;"></div>
 </main>
 
 <footer>
@@ -76,6 +78,7 @@
             currentOrder = order;
           }
         }
+        showScrollIconIfMoreContentAvailable();
       } catch (error) {
         console.error("Error fetching initial orders:", error);
       }
@@ -116,6 +119,7 @@
             currentOrder = order;
           }
         }
+        showScrollIconIfMoreContentAvailable();
       } catch (error) {
         console.error("Error fetching orders:", error);
       } finally {
@@ -159,6 +163,16 @@
       if (scrollPosition + 1 >= pageHeight) {
         console.log("Reached the bottom of the page. Fetching more orders...");
         fetchOrders();
+      }
+    }
+
+    function showScrollIconIfMoreContentAvailable() {
+      const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPosition = window.scrollY;
+
+      if (scrollPosition + 1 >= pageHeight) {
+        const scrollIcon = document.querySelector('.scroll-icon');
+        scrollIcon.style.display = 'block';
       }
     }
 

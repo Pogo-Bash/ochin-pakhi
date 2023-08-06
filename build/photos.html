@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ochin Pakhi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap" rel="stylesheet">
+  <style>
+    /* Add your custom CSS styles here */
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Our Photos</h1>
+    <div class="hamburger">&#9776;</div> <!-- Hamburger icon -->
+    <nav class="mobile-nav"> <!-- Mobile navigation - initially hidden -->
+      <ul>
+        <li><a href="index.html" class="nav-button">Home</a></li>
+        <li><a href="performance.html" class="nav-button">Performances</a></li>
+        <li><a href="photos.html" class="nav-button">Photos</a></li>
+        <li><a href="events.html" class="nav-button">Events</a></li>
+        <li><a href="contact.html" class="nav-button">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="grid">
+      <!-- Divs for initial content will be created here -->
+    </div>
+    <div class="scroll-icon" style="display: none;"></div>
+  </main>
+
+  <footer>
+    &copy; 2023 Ochin Pakhi
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', async function() {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileNav = document.querySelector('.mobile-nav');
+
+      hamburger.addEventListener('click', function() {
+        mobileNav.classList.toggle('show');
+      });
+
+      let loadingMore = false;
+      const grid = document.querySelector('.grid');
+      let currentOrder = 1;
+
+      async function fetchInitialOrders() {
+        try {
+          for (let i = 1; i <= 6; i++) {
+            const order = i;
+            const response = await sendAPIRequest(order);
+            if (response) {
+              createDivForOrder(response);
+              currentOrder = order;
+            }
+          }
+          showScrollIconIfMoreContentAvailable();
+        } catch (error) {
+          console.error("Error fetching initial orders:", error);
+        }
+      }
+
+  function createDivForOrder(response) {
+  const imageDiv = document.createElement('div');
+  imageDiv.classList.add('image-div');
+
+  if (response.url) {
+    const imageUrl = 'https://strapi-ru2c.onrender.com' + response.url;
+    const image = document.createElement('img');
+    image.src = imageUrl;
+    image.alt = "Event Poster";
+    imageDiv.appendChild(image);
+  }
+
+  const newDiv = document.createElement('div');
+  newDiv.classList.add('content');
+  newDiv.appendChild(imageDiv);
+
+  grid.appendChild(newDiv);
+}
+
+
+      async function fetchOrders() {
+        if (loadingMore) return; // Prevent multiple simultaneous fetches
+        loadingMore = true;
+
+        try {
+          for (let i = currentOrder + 1; i <= 99999; i++) {
+            const order = i;
+            const response = await sendAPIRequest(order);
+            if (response) {
+              createDivForOrder(response);
+              currentOrder = order;
+            }
+          }
+          showScrollIconIfMoreContentAvailable();
+        } catch (error) {
+          console.error("Error fetching orders:", error);
+        } finally {
+          loadingMore = false; // Reset the loading flag
+        }
+      }
+
+      async function sendAPIRequest(order, token) {
+        const url = `https://strapi-ru2c.onrender.com/api/ochin-photos/${order}?populate=poster`;
+        const options = {
+          method: "GET",
+        };
+
+        try {
+          const response = await fetch(url, options);
+          if (response.ok) {
+            const json = await response.json();
+            const url = json.data.attributes.poster?.data?.attributes.url || '';
+
+            return {
+              url
+            };
+          } else if (response.status === 404) {
+            console.error("API request failed for order", order, ". Error:", response.status);
+          } else {
+            console.error("API request failed for order", order, ". Error:", response.status);
+          }
+        } catch (error) {
+          console.error("API request failed for order", order, ". Error:", error);
+        }
+      }
+
+      async function handleScroll() {
+        const scrollPosition = window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+
+        if (scrollPosition + 1 >= pageHeight) {
+          console.log("Reached the bottom of the page. Fetching more orders...");
+          fetchOrders();
+        }
+      }
+
+      function showScrollIconIfMoreContentAvailable() {
+        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPosition = window.scrollY;
+
+        if (scrollPosition + 1 >= pageHeight) {
+          const scrollIcon = document.querySelector('.scroll-icon');
+          scrollIcon.style.display = 'block';
+        }
+      }
+
+      window.addEventListener("scroll", handleScroll);
+
+      // Initial fetch of orders
+      fetchInitialOrders();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Ochin Pakhi</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap" rel="stylesheet">
+  <style>
+    /* Add your additional styles here */
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Contact Us</h1>
+    <div class="hamburger">&#9776;</div>
+    <nav class="mobile-nav">
+      <ul>
+        <li><a href="index.html" class="nav-button">Home</a></li>
+        <li><a href="performance.html" class="nav-button">Performances</a></li>
+        <li><a href="photos.html" class="nav-button">Photos</a></li>
+        <li><a href="events.html" class="nav-button">Events</a></li>
+        <li><a href="contact.html" class="nav-button">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <button class="plus-button">
+    <a href="https://strapi-ru2c.onrender.com/admin" target="_blank" rel="noopener noreferrer">
+      <span>Add Content</span>
+      +
+    </a>
+  </button>
+  <main>
+    <h2>Contact Information</h2>
+    <div class="grid">
+      <div class="content">
+        <h4>General Inquiries</h4>
+        <p>
+          For general inquiries and information, please feel free to contact us using the following methods:
+        </p>
+        <ul>
+          <li>Email: info@ochinpakhi.com</li>
+          <li>Phone: +1 (123) 456-7890</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h4>Booking Requests</h4>
+        <p>
+          To book Ochin Pakhi for performances or events, please reach out to our booking manager:
+        </p>
+        <ul>
+          <li>Email: booking@ochinpakhi.com</li>
+          <li>Phone: +1 (987) 654-3210</li>
+        </ul>
+      </div>
+      <div class="content">
+        <h4>Follow Us</h4>
+        <p>
+          Stay connected with us on social media for updates, news, and more:
+        </p>
+        <ul>
+          <li>Facebook: @OchinPakhiMusic</li>
+          <li>Instagram: @ochin_pakhi</li>
+          <li>Twitter: @OchinPakhiBand</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Ochin Pakhi. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const hamburger = document.querySelector('.hamburger');
+      const mobileNav = document.querySelector('.mobile-nav');
+
+      hamburger.addEventListener('click', function () {
+        mobileNav.classList.toggle('show');
+      });
+    });
+  </script>
+</body>
+
+</html>

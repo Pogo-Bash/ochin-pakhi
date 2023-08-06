@@ -22,11 +22,11 @@ header {
   background-position: center center;
   color: #fff;
   padding: 50px; /* Adjust header padding for better mobile experience */
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 11;
 }
 
 @media screen and (max-width: 600px) {
@@ -43,7 +43,6 @@ header {
 }
 
 header h1 {
-  margin: 0;
   font-family: 'Siyam Rupali', sans-serif;
   font-size: 2em; /* Slightly reduce the font size for the header h1 */
   text-transform: uppercase;
@@ -124,7 +123,7 @@ main {
   flex: 1;
   min-height: calc(100vh - 120px); /* Adjust min-height for better mobile experience */
   max-width: 100%; /* Adjust max-width for better mobile experience */
-  margin: 120px auto 20px; /* Adjust margin for better mobile experience */
+  margin: 30px; /* Adjust margin for better mobile experience */
   padding: 20px; /* Keep the same padding for mobile and larger screens */
   background-color: #f2e4c8;
   color: #5c3317;
@@ -496,3 +495,79 @@ main .index div .content {
   /* ... (continue adding font size adjustments for other elements on larger screens) ... */
 }
 
+.scroll-icon {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: #007bff;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  opacity: 0.8;
+  transform: translateX(-50%);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scroll-icon.active {
+  display: block;
+}
+
+.image-div {
+  max-height: 200px; /* Adjust the maximum height as needed */
+  overflow: hidden;
+}
+
+.image-div img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ... (previous styles) ... */
+
+/* Additional styling for the plus button */
+.plus-button {
+  position: absolute;
+  bottom: calc(100vh - 220px); /* Adjust the value to align the button with contact info */
+  right: 20px;
+  z-index: 1;
+  background-color: #c7a024; /* Match the color with contact info background */
+  color: #fff; /* Match the color with contact info text */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.plus-button:hover {
+  background-color: #a1831a; /* Adjust the hover color if needed */
+}
+
+.plus-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.plus-button span {
+  color: #a1831a;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  display: none;
+  text-align: center;
+  font-size: 12px;
+}
+
+.plus-button:hover span {
+  display: block;
+}
