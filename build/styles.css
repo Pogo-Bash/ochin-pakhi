@@ -31,7 +31,8 @@ header {
 @media screen and (max-width: 600px) {
   header {
     padding: 20px; /* Increase header padding for smaller screens */
-    height: auto; /* Allow header height to adjust */
+    height: 100px; /* Reduce the header height for smaller screens */
+
   }
 
   header h1 {
@@ -39,20 +40,15 @@ header {
     margin-bottom: 10px; /* Reduce margin bottom for header h1 on smaller screens */
   }
 
-  /* Grid Styles */
   main .grid {
-    display: block; /* Change display to stack elements */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   main .grid div {
-    width: 100%; /* Ensure each div takes up the full width */
-    max-width: none; /* Reset the max-width for mobile view */
-    margin: 0 auto; /* Center the div horizontally */
-    padding: 20px; /* Add padding to space out the content */
-    background-color: #c7a024;
-    color: #fff;
-    border-radius: 5px;
-    margin-bottom: 20px; /* Add margin to separate the divs */
+    flex-basis: calc(50% - 20px);
+    margin: 10px;
   }
 }
 
