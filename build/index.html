@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,6 @@
     /* Add your additional styles here */
   </style>
 </head>
-
 <body>
   <header>
     <h1>Welcome To Ochin Pakhi</h1>
@@ -72,13 +70,17 @@
       const apiToken = await getApiToken();
       let order = 1;
       let fetchedEvent = false; // Track whether an event has been fetched
+      let consecutiveFailures = 0;
+      let lastSuccessfulEvent = null;
 
-      async function fetchNewestEvent() {
-        if (!fetchedEvent) {
+      async function fetchLatestEvent() {
+        if (!fetchedEvent && consecutiveFailures < 5) {
           console.log("Fetching data for order", order, "...");
           try {
             const newestEvent = await sendAPIRequest(order, apiToken);
             if (newestEvent) {
+              consecutiveFailures = 0; // Reset consecutive failures
+              lastSuccessfulEvent = newestEvent;
               console.log("Title:", newestEvent.title);
               console.log("Published At:", newestEvent.publishedAt);
               console.log("Timing:", newestEvent.timing);
@@ -89,13 +91,18 @@
               console.log("Data fetched successfully for order", order, "!");
             } else {
               order++;
-              fetchNewestEvent();
+              consecutiveFailures++;
+              fetchLatestEvent();
             }
           } catch (error) {
             console.error("Error fetching event for order", order, ":", error);
             order++;
-            fetchNewestEvent();
+            consecutiveFailures++;
+            fetchLatestEvent();
           }
+        } else if (lastSuccessfulEvent) {
+          console.log("Displaying the last successful event...");
+          renderEvent(lastSuccessfulEvent);
         }
       }
 
@@ -179,55 +186,11 @@
         return `${day}/${month}/${year}`;
       }
 
-      fetchNewestEvent(); // Fetch the newest event on page load
+      // Call the adjustSizes() function on page load
+      
+
+      fetchLatestEvent(); // Fetch the latest event on page load
     });
-
-    function adjustSizes() {
-      const screenWidth = window.innerWidth;
-      const header = document.querySelector('header');
-      const headerH1 = document.querySelector('header h1');
-      const hamburger = document.querySelector('.hamburger');
-      const mobileNav = document.querySelector('.mobile-nav');
-
-      if (screenWidth <= 600) {
-        // Adjust text size for smaller screens
-        document.body.style.fontSize = '14px';
-
-        // Adjust header styles for smaller screens
-        header.style.padding = '20px';
-        header.style.height = '100px';
-
-        // Adjust header h1 styles for smaller screens
-        headerH1.style.fontSize = '1.5em';
-        headerH1.style.marginBottom = '10px';
-
-        // Adjust mobile navigation styles for smaller screens
-        mobileNav.style.top = '50px';
-        mobileNav.style.right = '5px';
-        mobileNav.style.width = '160px';
-      } else {
-        // Reset to default text and element sizes for larger screens
-        document.body.style.fontSize = '16px';
-
-        // Reset header styles for larger screens
-        header.style.padding = '50px';
-        header.style.height = 'auto';
-
-        // Reset header h1 styles for larger screens
-        headerH1.style.fontSize = '2em';
-        headerH1.style.marginBottom = '10px';
-
-        // Hide mobile navigation for larger screens
-        mobileNav.classList.remove('show');
-      }
-    }
-
-    // Call the adjustSizes() function on page load
-    window.addEventListener('DOMContentLoaded', adjustSizes);
-
-    // Call the adjustSizes() function whenever the window is resized
-    window.addEventListener('resize', adjustSizes);
   </script>
 </body>
-
 </html>
