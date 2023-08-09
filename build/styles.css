@@ -31,8 +31,7 @@ header {
 @media screen and (max-width: 600px) {
   header {
     padding: 20px; /* Increase header padding for smaller screens */
-    height: 100px; /* Reduce the header height for smaller screens */
-
+    height: auto; /* Allow header height to adjust */
   }
 
   header h1 {
@@ -40,10 +39,9 @@ header {
     margin-bottom: 10px; /* Reduce margin bottom for header h1 on smaller screens */
   }
 
+  /* Grid Styles */
   main .grid {
-    grid-template-columns: 1fr; /* Set each row to contain one div for mobile */
-    grid-gap: 0; /* Remove gap between grid items */
-    text-align: center; /* Center the content */
+    display: block; /* Change display to stack elements */
   }
 
   main .grid div {
@@ -51,6 +49,10 @@ header {
     max-width: none; /* Reset the max-width for mobile view */
     margin: 0 auto; /* Center the div horizontally */
     padding: 20px; /* Add padding to space out the content */
+    background-color: #c7a024;
+    color: #fff;
+    border-radius: 5px;
+    margin-bottom: 20px; /* Add margin to separate the divs */
   }
 }
 
