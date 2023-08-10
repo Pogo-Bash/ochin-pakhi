@@ -581,3 +581,10 @@ main .index div .content {
 .plus-button:hover span {
   display: block;
 }
+
+@media screen and (max-width: 600px) {
+  main .grid div,
+  main .index div {
+    flex-basis: calc(50% - 20px); /* Two columns on mobile, accounting for grid gap */
+  }
+}
