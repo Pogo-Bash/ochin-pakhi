@@ -31,7 +31,8 @@
     <div class="grid">
       <!-- Divs for initial content will be created here -->
     </div>
-    <div class="scroll-icon">⇣</div>  </main>
+    <div class="scroll-icon">⇣</div>
+  </main>
 
   <footer>
     &copy; 2023 Ochin Pakhi
@@ -51,69 +52,85 @@
       let currentOrder = 2;
 
       async function fetchOrders(order) {
-  const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`;
+        const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`;
 
-  try {
-    const response = await fetch(url);
-    if (response.ok) {
-      const data = await response.json();
-      const imageUrl = data.data.attributes.poster?.data?.attributes.url || '';
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const data = await response.json();
+            const imageUrl = data.data.attributes.poster?.data?.attributes.url || '';
+            const title = data.data.attributes.title || '';
+            const description = data.data.attributes.description || '';
 
-      console.log("Fetched data for order", order);
-      console.log("Image URL:", imageUrl);
-
-      return imageUrl;
-    } else {
-      console.error("API request failed for order", order, ". Error:", response.status);
-      return null;
-    }
-  } catch (error) {
-    console.error("API request failed for order", order, ". Error:", error);
-    return null;
-  }
-}
-
-
-      async function handleScroll() {
-  const scrollPosition = window.scrollY;
-  const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-  if (scrollPosition >= pageHeight * 0.8) {
-    if (!loadingMore) {
-      loadingMore = true;
-
-      for (let i = 0; i < 3; i++) {
-        const imageUrl = await fetchOrders(currentOrder);
-        if (imageUrl) {
-          createDivForOrder(imageUrl);
-          currentOrder++;
-        } else {
-          break; // No more content to load
+            return {
+              imageUrl,
+              title,
+              description
+            };
+          } else {
+            console.error("API request failed for order", order, ". Error:", response.status);
+            return null;
+          }
+        } catch (error) {
+          console.error("API request failed for order", order, ". Error:", error);
+          return null;
         }
       }
 
-      loadingMore = false;
-      showScrollIconIfMoreContentAvailable();
-    }
-  }
-}
+      async function handleScroll() {
+        const scrollPosition = window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-function createDivForOrder(imageUrl) {
-  const imageDiv = document.createElement('div');
-  imageDiv.classList.add('image-div');
+        if (scrollPosition >= pageHeight * 0.8) {
+          if (!loadingMore) {
+            loadingMore = true;
 
-  const image = document.createElement('img');
-  // Prepend the domain to the imageUrl
-  image.src = 'https://strapi-ru2c.onrender.com' + imageUrl;
-  image.alt = "Event Poster";
-  imageDiv.appendChild(image);
+            for (let i = 0; i < 3; i++) {
+              const { imageUrl, title, description } = await fetchOrders(currentOrder);
+              if (imageUrl) {
+                createDivForOrder(imageUrl, title, description);
+                currentOrder++;
+              } else {
+                break; // No more content to load
+              }
+            }
 
-  const newDiv = document.createElement('div');
-  newDiv.classList.add('content');
-  newDiv.appendChild(imageDiv);
+            loadingMore = false;
+            showScrollIconIfMoreContentAvailable();
+          }
+        }
+      }
 
-  grid.appendChild(newDiv);
-}
+      function createDivForOrder(imageUrl, title, description) {
+        const eventDiv = document.createElement('div');
+        eventDiv.classList.add('event-div');
+
+        const imageDiv = document.createElement('div');
+        imageDiv.classList.add('image-div');
+
+        const image = document.createElement('img');
+        image.src = 'https://strapi-ru2c.onrender.com' + imageUrl;
+        image.alt = "Event Poster";
+        imageDiv.appendChild(image);
+
+        const contentDiv = document.createElement('div');
+        contentDiv.classList.add('content');
+
+
+        const titleElement = document.createElement('h2');
+        titleElement.textContent = title;
+
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = description;
+        
+        eventDiv.appendChild(titleElement);
+
+        eventDiv.appendChild(imageDiv);
+        
+        eventDiv.appendChild(descriptionElement);
+
+        grid.appendChild(eventDiv);
+      }
 
       function showScrollIconIfMoreContentAvailable() {
         const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
