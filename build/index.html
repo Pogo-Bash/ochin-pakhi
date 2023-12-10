@@ -31,7 +31,7 @@
 
   <main>
     <h2>Newest Event</h2>
-    <div class="index"></div>
+    <div class="newest-event"></div>
 
     <h2>About Us</h2>
     <p>
@@ -70,75 +70,62 @@
 
     window.addEventListener("DOMContentLoaded", async function () {
       const apiToken = await getApiToken();
-      let order = 1;
-      let fetchedEvent = false; // Track whether an event has been fetched
-      let consecutiveFailures = 0;
-      let lastSuccessfulEvent = null;
+      
+      async function fetchNewestEvent() {
+        const url = 'https://strapi-ru2c.onrender.com/api/events?_sort=createdAt:DESC&_limit=1&populate=poster';
 
-      async function fetchLatestEvent() {
-        if (!fetchedEvent && consecutiveFailures < 5) {
-          console.log("Fetching data for order", order, "...");
-          try {
-            const newestEvent = await sendAPIRequest(order, apiToken);
-            if (newestEvent) {
-              consecutiveFailures = 0; // Reset consecutive failures
-              lastSuccessfulEvent = newestEvent;
-              console.log("Title:", newestEvent.title);
-              console.log("Published At:", newestEvent.publishedAt);
-              console.log("Timing:", newestEvent.timing);
-              console.log("Description:", newestEvent.description);
-              console.log("URL:", newestEvent.url);
-              renderEvent(newestEvent);
-              fetchedEvent = true; // Set fetchedEvent to true after successfully fetching an event
-              console.log("Data fetched successfully for order", order, "!");
-            } else {
-              order++;
-              consecutiveFailures++;
-              fetchLatestEvent();
+        try {
+          const response = await fetch(url);
+          if (response.ok) {
+            const responseData = await response.json();
+            const latestEvent = responseData.data[0];
+            const imageUrl = latestEvent.attributes.poster?.data?.attributes?.url || '';
+            const title = latestEvent.attributes.title || '';
+            const description = latestEvent.attributes.description || '';
+
+            if (imageUrl) {
+              displayNewestEvent(imageUrl, title, description);
             }
-          } catch (error) {
-            console.error("Error fetching event for order", order, ":", error);
-            order++;
-            consecutiveFailures++;
-            fetchLatestEvent();
+          } else {
+            console.error("Failed to fetch the latest event. Error:", response.status);
           }
-        } else if (lastSuccessfulEvent) {
-          console.log("Displaying the last successful event...");
-          renderEvent(lastSuccessfulEvent);
+        } catch (error) {
+          console.error("Failed to fetch the latest event. Error:", error);
         }
       }
 
-      function renderEvent(event) {
-        const indexDiv = document.querySelector('.index');
-        indexDiv.innerHTML = '';
+      function displayNewestEvent(imageUrl, title, description) {
+  const newestEventContainer = document.querySelector('.newest-event');
 
-        const { title, publishedAt, timing, description, url } = event;
+  const eventDiv = document.createElement('div');
+  eventDiv.classList.add('grid', 'event-div');
 
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('content');
-        newDiv.innerHTML = `<h4>${title}</h4>`;
+  const contentDiv = document.createElement('div');
+  contentDiv.classList.add('content');
 
-        const timingPre = document.createElement('pre');
-        timingPre.textContent = `Timing: ${publishedAt}`;
-        timingPre.style.textAlign = 'center';
+  const image = document.createElement('img');
+  image.src = 'https://strapi-ru2c.onrender.com' + imageUrl;
+  image.alt = 'Event Poster';
+  image.style.width = '100%'; // Ensure the image fits the container
 
-        const descriptionPre = document.createElement('pre');
-        descriptionPre.textContent = `Description: ${description}`;
-        descriptionPre.style.textAlign = 'justify';
-        descriptionPre.style.textJustify = 'inter-word';
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = title;
 
-        if (url) {
-          const image = document.createElement('img');
-          image.src = url;
-          image.alt = "Event Poster";
-          newDiv.appendChild(image);
-        }
+  const descriptionElement = document.createElement('p');
+  descriptionElement.textContent = description;
 
-        newDiv.appendChild(timingPre);
-        newDiv.appendChild(descriptionPre);
+  // Append elements to content div
+  contentDiv.appendChild(image);
+  contentDiv.appendChild(titleElement);
+  contentDiv.appendChild(descriptionElement);
 
-        indexDiv.appendChild(newDiv);
-      }
+  // Append content div to event div
+  eventDiv.appendChild(contentDiv);
+
+  // Append the event div to the newest event container
+  newestEventContainer.appendChild(eventDiv);
+}
+
 
       async function getApiToken() {
         const tokenResponse = await fetch('/api');
@@ -146,52 +133,8 @@
         return token.trim();
       }
 
-      async function sendAPIRequest(order, token) {
-        const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`; // Updated API endpoint
-        const options = {
-          method: "GET",
-        };
-
-        try {
-          const response = await fetch(url, options);
-
-          if (response.ok) {
-            const json = await response.json();
-            const title = json.data.attributes.Name;
-            const publishedAt = json.data.attributes.publishedAt;
-            const timing = json.data.attributes.Timing; // Additional JSON data
-            const description = json.data.attributes.description; // Additional JSON data
-            const url = json.data.attributes.poster?.data?.attributes.url || '';
-
-            return {
-              title,
-              publishedAt,
-              timing,
-              description,
-              url
-            };
-          } else if (response.status === 404) {
-            console.error("API request failed for order", order, ". Error:", response.status);
-          } else {
-            console.error("API request failed for order", order, ". Error:", response.status);
-          }
-        } catch (error) {
-          console.error("API request failed for order", order, ". Error:", error);
-        }
-      }
-
-      function formatDate(dateString) {
-        const date = new Date(dateString);
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
-      }
-
-      // Call the adjustSizes() function on page load
-      
-
-      fetchLatestEvent(); // Fetch the latest event on page load
+      // Fetch the newest event on page load
+      fetchNewestEvent();
     });
   </script>
 </body>
