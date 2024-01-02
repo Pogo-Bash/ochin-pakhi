@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap" rel="stylesheet">
   <style>
+    /* Add your custom CSS styles here */
   </style>
 </head>
 <body>
@@ -28,10 +29,10 @@
 
   <main>
     <div class="grid">
+      <!-- Divs for initial content will be created here -->
     </div>
     <div class="scroll-icon">⇣</div>
   </main>
-
 
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
@@ -41,8 +42,7 @@
       hamburger.addEventListener('click', function() {
         mobileNav.classList.toggle('show');
       });
-
-      let loadingMore = false;
+      
       const grid = document.querySelector('.grid');
       let currentOrder = 2;
 
@@ -72,28 +72,20 @@
         }
       }
 
-      async function handleScroll() {
-        const scrollPosition = window.scrollY;
-        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-        if (scrollPosition >= pageHeight * 0.8) {
-          if (!loadingMore) {
-            loadingMore = true;
-
-            for (let i = 0; i < 3; i++) {
-              const { imageUrl, title, description } = await fetchOrders(currentOrder);
-              if (imageUrl) {
-                createDivForOrder(imageUrl, title, description);
-                currentOrder++;
-              } else {
-                break; // No more content to load
-              }
-            }
-
-            loadingMore = false;
-            showScrollIconIfMoreContentAvailable();
+      async function loadInitialContent() {
+        // Load the first three divs initially
+        for (let i = 0; i < 3; i++) {
+          const { imageUrl, title, description } = await fetchOrders(currentOrder);
+          if (imageUrl) {
+            createDivForOrder(imageUrl, title, description);
+            currentOrder++;
+          } else {
+            break; // No more content to load
           }
         }
+
+        // Check and display scroll icon if more content is available
+        showScrollIconIfMoreContentAvailable();
       }
 
       function createDivForOrder(imageUrl, title, description) {
@@ -111,7 +103,6 @@
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('content');
 
-
         const titleElement = document.createElement('h2');
         titleElement.textContent = title;
 
@@ -119,9 +110,7 @@
         descriptionElement.textContent = description;
         
         eventDiv.appendChild(titleElement);
-
         eventDiv.appendChild(imageDiv);
-        
         eventDiv.appendChild(descriptionElement);
 
         grid.appendChild(eventDiv);
@@ -140,13 +129,22 @@
         }
       }
 
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", async function() {
+        const scrollPosition = window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-      // Initial fetch of orders
-      fetchOrders(currentOrder);
+        if (scrollPosition >= pageHeight * 0.8) {
+          const { imageUrl, title, description } = await fetchOrders(currentOrder);
+          if (imageUrl) {
+            createDivForOrder(imageUrl, title, description);
+            currentOrder++;
+          }
+          showScrollIconIfMoreContentAvailable();
+        }
+      });
 
-      // Initial check for scroll icon visibility
-      showScrollIconIfMoreContentAvailable();
+      // Call the function to load initial content
+      loadInitialContent();
     });
   </script>
 </body>

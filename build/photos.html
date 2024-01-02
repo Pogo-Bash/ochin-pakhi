@@ -31,8 +31,8 @@
     <div class="grid">
       <!-- Divs for initial content will be created here -->
     </div>
-    <div class="scroll-icon">⇣</div>  </main>
-
+    <div class="scroll-icon">⇣</div>
+  </main>
 
   <script>
     document.addEventListener('DOMContentLoaded', async function() {
@@ -43,7 +43,6 @@
         mobileNav.classList.toggle('show');
       });
 
-      let loadingMore = false;
       const grid = document.querySelector('.grid');
       let currentOrder = 1;
 
@@ -67,29 +66,21 @@
         }
       }
 
-      async function handleScroll() {
-  const scrollPosition = window.scrollY;
-  const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-  if (scrollPosition >= pageHeight * 0.8) {
-    if (!loadingMore) {
-      loadingMore = true;
-
-      for (let i = 0; i < 3; i++) {
-        const imageUrl = await fetchOrders(currentOrder);
-        if (imageUrl) {
-          createDivForOrder(imageUrl);
-          currentOrder++;
-        } else {
-          break; // No more content to load
+      async function loadInitialContent() {
+        // Load the first three divs initially
+        for (let i = 0; i < 3; i++) {
+          const imageUrl = await fetchOrders(currentOrder);
+          if (imageUrl) {
+            createDivForOrder(imageUrl);
+            currentOrder++;
+          } else {
+            break; // No more content to load
+          }
         }
-      }
 
-      loadingMore = false;
-      showScrollIconIfMoreContentAvailable();
-    }
-  }
-}
+        // Check and display scroll icon if more content is available
+        showScrollIconIfMoreContentAvailable();
+      }
 
       function createDivForOrder(imageUrl) {
         const imageDiv = document.createElement('div');
@@ -120,13 +111,26 @@
         }
       }
 
-      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", async function() {
+        const scrollPosition = window.scrollY;
+        const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-      // Initial fetch of orders
-      fetchOrders(currentOrder);
+        if (scrollPosition >= pageHeight * 0.8) {
+          for (let i = 0; i < 3; i++) {
+            const imageUrl = await fetchOrders(currentOrder);
+            if (imageUrl) {
+              createDivForOrder(imageUrl);
+              currentOrder++;
+            } else {
+              break; // No more content to load
+            }
+          }
+          showScrollIconIfMoreContentAvailable();
+        }
+      });
 
-      // Initial check for scroll icon visibility
-      showScrollIconIfMoreContentAvailable();
+      // Call the function to load initial content
+      loadInitialContent();
     });
   </script>
 </body>
