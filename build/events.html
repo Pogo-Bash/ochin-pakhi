@@ -92,13 +92,13 @@
         const eventDiv = document.createElement('div');
         eventDiv.classList.add('event-div');
 
-        const imageDiv = document.createElement('div');
-        imageDiv.classList.add('image-div');
-
         const image = document.createElement('img');
+
         image.src = 'https://strapi-ru2c.onrender.com' + imageUrl;
         image.alt = "Event Poster";
-        imageDiv.appendChild(image);
+        image.style.width = '100%'; // Ensure the image fits the container
+        image.loading = "lazy";
+        eventDiv.appendChild(image);
 
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('content');
@@ -110,7 +110,7 @@
         descriptionElement.textContent = description;
         
         eventDiv.appendChild(titleElement);
-        eventDiv.appendChild(imageDiv);
+        eventDiv.appendChild(image);
         eventDiv.appendChild(descriptionElement);
 
         grid.appendChild(eventDiv);
