@@ -28,6 +28,7 @@
       </ul>
     </nav>
   </header>
+  <audio id="start" src="ochin.mp3"></audio>
 
   <main>
     <h2>Newest Event</h2>
@@ -59,6 +60,47 @@
   </main>
 
   <script>
+   window.addEventListener("DOMContentLoaded", async function () {
+  const audio = document.getElementById("start");
+  let audioStarted = false;
+
+  window.addEventListener("scroll", async function () {
+    if (!audioStarted) {
+      try {
+        const hasPermission = await navigator.mediaDevices.getUserMedia({ audio: true });
+        if (hasPermission) {
+          await audio.play();
+          audioStarted = true; // Set flag to true once audio is started
+        } else {
+          alert("Please allow audio playback to hear the music.");
+        }
+      } catch (error) {
+        console.error("Error requesting audio permission:", error);
+      }
+    }
+  });
+
+});
+
+async function checkAudioFile(audio) {
+  try {
+    // Mute the audio element before playing
+    audio.muted = true;
+
+    // Trigger a load on the audio element
+    await audio.play();
+    await audio.pause();
+
+    // Unmute the audio element (optional)
+    audio.muted = false;
+
+    return true; // Audio file found
+  } catch (error) {
+    return false; // Audio file not found
+  }
+}
+
+
     document.addEventListener('DOMContentLoaded', function () {
       const hamburger = document.querySelector('.hamburger');
       const mobileNav = document.querySelector('.mobile-nav');
