@@ -1,4 +1,3 @@
-/* Global Styles */
 body {
   display: flex;
   flex-direction: column;
@@ -12,17 +11,15 @@ body {
   text-align: center;
 }
 
-/* Import the Bubblegum Sans font */
 @import url('https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap');
 
-/* Header Styles */
 header {
   background-image: url('/assets/header.jpg');
 
   background-size: cover;
   background-position: center center;
   color: #fff;
-  padding: 50px; /* Adjust header padding for better mobile experience */
+  padding: 50px; 
   top: 0;
   left: 0;
   right: 0;
@@ -30,28 +27,27 @@ header {
 }
 
 .logo {
-  width: 50px; /* Set your desired logo width */
-  height: 50px; /* Set your desired logo height */
+  width: 50px; 
+  height: 50px; 
   background-size: cover;
   position: absolute;
-  top: 20px; /* Adjust as needed */
-  left: 10px; /* Adjust as needed */
-  z-index: 12; /* Place the logo above the header content */
+  top: 20px; 
+  left: 10px; 
+  z-index: 12; 
 }
-
 
 @media screen and (max-width: 600px) {
   header {
-    padding: 20px; /* Increase header padding for smaller screens */
-    height: 100px; /* Reduce the header height for smaller screens */
+    padding: 20px; 
+    height: 100px; 
 
   }
 
   header h1 {
     color: #fff;
   padding: 50px;
-  /* Add outline */
-  /* Other positioning styles */
+  
+  
   top: 0;
   left: 0;
   right: 0;
@@ -72,43 +68,41 @@ header {
 
 header h1 {
   font-family: 'Siyam Rupali', sans-serif;
-  font-size: 2em; /* Slightly reduce the font size for the header h1 */
+  font-size: 2em; 
   text-transform: uppercase;
   color: #fff;
-  margin-bottom: 10px; /* Adjusted margin bottom for the header h1 */
+  margin-bottom: 10px; 
 }
 
-/* Hamburger Styles */
 .hamburger {
   display: block;
   font-size: 24px;
   cursor: pointer;
   position: absolute;
-  top: 10px; /* Adjust the hamburger position for better alignment */
-  right: 10px; /* Adjust the hamburger position for better alignment */
-  /* Add your styling for the hamburger icon, e.g., padding, background color, etc. */
+  top: 10px; 
+  right: 10px; 
+  
 }
 
-/* Mobile Navigation Styles */
 .mobile-nav {
   display: none;
   position: fixed;
-  top: 60px; /* Adjust the top position for the mobile nav */
-  right: 10px; /* Adjust the right position for better alignment */
-  width: 180px; /* Reduce the width of the navigation menu for better mobile experience */
+  top: 60px; 
+  right: 10px; 
+  width: 180px; 
   background-color: #d4af37;
   z-index: 999;
-  padding: 10px; /* Reduce the padding for better mobile experience */
+  padding: 10px; 
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adjust the box shadow for better appearance */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 @media screen and (max-width: 600px) {
   .mobile-nav {
-    /* Other styles... */
-    top: 50px; /* Adjust the top position for smaller screens */
-    right: 5px; /* Adjust the right position for better alignment on smaller screens */
-    width: 160px; /* Reduce the width of the navigation menu for smaller screens */
+    
+    top: 50px; 
+    right: 5px; 
+    width: 160px; 
   }
 }
 
@@ -121,12 +115,12 @@ header h1 {
 }
 
 .mobile-nav li {
-  margin: 8px 0; /* Reduce the vertical margin between list items for better spacing */
+  margin: 8px 0; 
 }
 
 .mobile-nav a {
   display: block;
-  padding: 8px 16px; /* Reduce the padding for better mobile experience */
+  padding: 8px 16px; 
   color: #fff;
   text-decoration: none;
   transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -139,35 +133,34 @@ header h1 {
 }
 
 .mobile-nav a:not(:last-child) {
-  border-bottom: none; /* Remove the bottom border for the last button */
+  border-bottom: none; 
 }
 
 .mobile-nav.show {
   display: block;
 }
 
-/* Add styling for the main content */
 main {
   flex: 1;
-  min-height: calc(100vh - 120px); /* Adjust min-height for better mobile experience */
-  max-width: 100%; /* Adjust max-width for better mobile experience */
-  margin: 30px; /* Adjust margin for better mobile experience */
-  padding: 20px; /* Keep the same padding for mobile and larger screens */
+  min-height: calc(100vh - 120px); 
+  max-width: 100%; 
+  margin: 30px; 
+  padding: 20px; 
   background-color: #f2e4c8;
   color: #5c3317;
   text-align: justify;
-  padding-top: 30px; /* Reduce padding-top for better mobile experience */
+  padding-top: 30px; 
 }
 
 @media screen and (max-width: 600px) {
-  /* Adjust the layout for smaller screens */
+  
   main {
     padding: 10px;
-    margin: 100px auto 20px; /* Adjust margin for smaller screens */
+    margin: 100px auto 20px; 
   }
 
   main h2 {
-    font-size: 1.8em; /* Increase the font size for h2 on smaller screens */
+    font-size: 1.8em; 
   }
 
   main p {
@@ -175,7 +168,6 @@ main {
   }
 }
 
-/* Footer Styles */
 footer {
   background-color: #d4af37;
   color: #fff;
@@ -190,7 +182,7 @@ img {
 }
 
 main {
-  text-align: center; /* Center the content within main */
+  text-align: center; 
 }
 
 main h2 {
@@ -198,7 +190,6 @@ main h2 {
   margin-right: auto;
 }
 
-/* Div Styles */
 main .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -217,7 +208,7 @@ main .grid div {
   text-align: center;
   border-radius: 5px;
   width: 350px;
-  min-height: 200px; /* Adjust the minimum height as needed */
+  min-height: 200px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -239,29 +230,28 @@ main .grid div .content {
 }
 
 .main .grid div:last-child {
-  align-self: stretch; /* Stretch the last item vertically */
+  align-self: stretch; 
 }
 
 .main .grid div:last-child .content {
   flex-grow: 1;
 }
 
-/* Arrow Buttons */
 .arrow-buttons {
   z-index: 1100;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: auto; /* Push the buttons to the bottom */
+  margin-top: auto; 
   padding: 20px 0;
-  font-family: 'Siyam Rupali', sans-serif; /* Use the same font as other elements */
+  font-family: 'Siyam Rupali', sans-serif; 
 }
 
 .arrow-buttons button {
   z-index: 1100;
   background-color: transparent;
   border: none;
-  font-size: 16px; /* Adjust the font size */
+  font-size: 16px; 
   color: #c7a024;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -297,7 +287,7 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  /* Add the following properties to center the h2 element */
+  
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
@@ -308,35 +298,30 @@ body::before {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  opacity: 0.5; /* replace with your desired opacity value */
+  opacity: 0.5; 
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1; /* Increase the z-index to ensure the background image is below header */
+  z-index: 1; 
 }
 
-/* Custom Scrollbar Styles */
-/* width */
 ::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Track */
 ::-webkit-scrollbar-track {
-  background: #f2e4c8; /* Set the background color of the scrollbar track */
+  background: #f2e4c8; 
 }
 
-/* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #d4af37; /* Set the color of the scrollbar handle */
-  border-radius: 5px; /* Add some border-radius for a rounded appearance */
+  background: #d4af37; 
+  border-radius: 5px; 
 }
 
-/* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #c7a024; /* Set the color of the scrollbar handle on hover */
+  background: #c7a024; 
 }
 
 .speaker {
@@ -346,19 +331,16 @@ body::before {
 }
 .image-container {
   max-width: 100%;
-  max-height: 800px; /* Limit the maximum height of the image container for mobile devices */
-  margin: 0 auto; /* Center the container horizontally */
-  overflow: hidden; /* Hide any overflow of the image */
+  max-height: 800px; 
+  margin: 0 auto; 
+  overflow: hidden; 
 }
 
 .image-container img {
-  width: 100%; /* Set the width of the image to fill the container */
-  height: auto; /* Allow the image height to adjust proportionally */
-  max-width: 600px; /* Limit the maximum width of the image */
+  width: 100%; 
+  height: auto; 
+  max-width: 600px; 
 }
-
-
-
 
 main .index {
 
@@ -379,7 +361,7 @@ main .index div {
   text-align: center;
   border-radius: 5px;
   width: 700px;
-  min-height: 500px; /* Adjust the minimum height as needed */
+  min-height: 500px; 
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -401,78 +383,73 @@ main .index div .content {
 }
 
 .main .index div:last-child {
-  align-self: stretch; /* Stretch the last item vertically */
+  align-self: stretch; 
 }
 
 .main .index div:last-child .content {
   flex-grow: 1;
 }
 
-/* Normal Styles */
-/* ... (existing styles) ... */
-
-/* Media Query for Smaller Screens */
 @media screen and (max-width: 600px) {
-  /* Header Styles */
+  
   header {
-    padding: 20px; /* Increase header padding for smaller screens */
-    height: 100px; /* Reduce the header height for smaller screens */
+    padding: 20px; 
+    height: 100px; 
   }
 
   header h1 {
-    font-size: 1.5em; /* Decrease the font size for the header on smaller screens */
-    margin-bottom: 10px; /* Reduce margin bottom for header h1 on smaller screens */
+    font-size: 1.5em; 
+    margin-bottom: 10px; 
   }
 
-  /* Mobile Navigation Styles */
+  
   .mobile-nav {
-    top: 50px; /* Adjust the top position for smaller screens */
-    right: 5px; /* Adjust the right position for better alignment on smaller screens */
-    width: 160px; /* Reduce the width of the navigation menu for smaller screens */
+    top: 50px; 
+    right: 5px; 
+    width: 160px; 
   }
 
-  /* H2 element */
+  
   main h2 {
-    font-size: 1.8em; /* Increase the font size for h2 on smaller screens */
+    font-size: 1.8em; 
   }
 
-  /* Paragraphs */
+  
   main p {
-    font-size: 1em; /* Adjust the font size for paragraphs on smaller screens */
+    font-size: 1em; 
   }
 
-  /* Grid item content */
+  
   main .grid div .content {
-    font-size: 14px; /* Adjust the font size for grid item content on smaller screens */
+    font-size: 14px; 
   }
 
-  /* Index item content */
+  
   main .index div .content {
-    font-size: 14px; /* Adjust the font size for index item content on smaller screens */
+    font-size: 14px; 
   }
 
-  /* Arrow Buttons */
+  
   .arrow-buttons button {
-    font-size: 14px; /* Adjust the font size for arrow buttons on smaller screens */
+    font-size: 14px; 
   }
 
-  /* ... (add more adjustments for other elements as needed) ... */
+  
 }
 
-/* Additional Media Query for Desktop Screens (Optional) */
 @media screen and (min-width: 601px) {
-  /* Header Styles */
+  
   header {
-    padding: 50px; /* Restore header padding for larger screens */
-    height: auto; /* Restore the header height for larger screens */
+    padding: 50px; 
+    height: auto; 
   }
 
   header h1 {
-    font-size: 2em; /* Restore the font size for the header on larger screens */
-    margin-bottom: 10px; /* Restore margin bottom for header h1 on larger screens */
+    font-size: 2em; 
+    margin-bottom: 10px; 
     color: #fff;
   padding: 50px;
-  /* Other positioning styles */
+  
   top: 0;
   left: 0;
   right: 0;
@@ -480,55 +457,54 @@ main .index div .content {
   -webkit-text-stroke: 0.5px black;
   }
 
-  /* Mobile Navigation Styles */
+  
 
-
-  /* H2 element */
+  
   main h2 {
-    font-size: 3em; /* Increase the font size for h2 on larger screens */
+    font-size: 3em; 
   }
 
-  /* Paragraphs */
+  
   main p {
-    font-size: 1.2em; /* Adjust the font size for paragraphs on larger screens */
+    font-size: 1.2em; 
   }
 
-  /* Grid item content */
+  
   main .grid div .content {
-    font-size: 16px; /* Adjust the font size for grid item content on larger screens */
+    font-size: 16px; 
   }
 
-  /* Index item content */
+  
   main .index div .content {
-    font-size: 16px; /* Adjust the font size for index item content on larger screens */
+    font-size: 16px; 
   }
 
-  /* Arrow Buttons */
+  
   .arrow-buttons button {
-    font-size: 16px; /* Adjust the font size for arrow buttons on larger screens */
+    font-size: 16px; 
   }
 
-  /* ... (add more adjustments for other elements as needed) ... */
+  
 
-  /* Additional font size adjustments for desktop view */
-  /* For example: */
+  
+  
 
-  /* Footer Styles */
+  
   footer {
-    font-size: 14px; /* Adjust the font size for footer content on larger screens */
+    font-size: 14px; 
   }
 
-  /* Main content paragraphs */
+  
   main p {
-    font-size: 18px; /* Adjust the font size for main content paragraphs on larger screens */
+    font-size: 18px; 
   }
 
-  /* Image captions */
+  
   .image-container figcaption {
-    font-size: 12px; /* Adjust the font size for image captions on larger screens */
+    font-size: 12px; 
   }
 
-  /* ... (continue adding font size adjustments for other elements on larger screens) ... */
+  
 }
 
 .scroll-icon {
@@ -555,7 +531,7 @@ main .index div .content {
 }
 
 .image-div {
-  max-height: 200px; /* Adjust the maximum height as needed */
+  max-height: 200px; 
   overflow: hidden;
 }
 
@@ -565,20 +541,16 @@ main .index div .content {
   object-fit: contain;
 }
 
-/* ... (previous styles) ... */
-
-
-
 .invisible-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  background-color: #c7a024; /* Yellow ochre color */
+  background-color: #c7a024; 
   max-width: 600px;
   margin: 0 auto;
   margin-top: 50px;
-  margin-bottom: 20px; /* Add margin to separate the rows */
+  margin-bottom: 20px; 
   border-radius: 5px;
 }
 
@@ -610,7 +582,6 @@ main .index div .content {
   height: auto;
 }
 
-/* Display two containers side by side */
 .invisible-row {
   display: flex;
   flex-wrap: wrap;
@@ -618,52 +589,43 @@ main .index div .content {
 }
 
 @media screen and (min-width: 601px) {
-  /* ... (previous styles) ... */
+  
 
-  /* Additional font size adjustments for desktop view */
-  /* For example: */
+  
+  
 
-  /* Footer Styles */
+  
   footer {
-    font-size: 14px; /* Adjust the font size for footer content on larger screens */
+    font-size: 14px; 
   }
 
-  /* Main content paragraphs */
+  
   main p {
-    font-size: 18px; /* Adjust the font size for main content paragraphs on larger screens */
+    font-size: 18px; 
   }
 
-  /* Image captions */
+  
   .image-container figcaption {
-    font-size: 12px; /* Adjust the font size for image captions on larger screens */
+    font-size: 12px; 
   }
 
-  /* ... (continue adding font size adjustments for other elements on larger screens) ... */
+  
 }
 
-/* Add your additional styles here */
-
-/* Remove default list styles and format list items */
 ul {
   list-style: none;
   padding: 0;
 }
 
-/* Style list items */
 ul li {
   margin-bottom: 10px;
 }
 
-/* Style links to look like regular text */
 ul li a {
   color: inherit;
   text-decoration: none;
 }
 
-/* Add hover effect to links */
-
-
-/* Style the plus-button */
 .plus-button {
   background-color: #007bff;
   color: white;
@@ -679,21 +641,18 @@ ul li a {
   text-decoration: none;
 }
 
-/* Style the main grid */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
 }
 
-/* Style the content boxes */
 .content {
   
   
   border-radius: 5px;
 }
 
-/* Style footer */
 footer {
   text-align: center;
   margin-top: 20px;
@@ -701,13 +660,12 @@ footer {
   background-color: #f4f4f4;
 }
 
-/* Adjusted CSS for the newest event and image container */
 main .newest-event {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px; /* Add space between the newest event text and the image */
+  margin-bottom: 20px; 
 }
 
 main .newest-event .grid {
@@ -725,11 +683,9 @@ main .newest-event .grid {
 }
 
 main .newest-event .grid .content {
-  text-align: center; /* Center align the text within the content */
+  text-align: center; 
 }
 
-
-/* Hide Scrollbars */
 .card .text-box::-webkit-scrollbar {
   display: none;
 }
@@ -829,8 +785,7 @@ main .newest-event .grid .content {
   display: none;
 }
 
-/* Hide Scrollbars - Mozilla (Firefox) */
 .card .text-box {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
 }
