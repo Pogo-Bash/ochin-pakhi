@@ -1,3 +1,14 @@
-# README
+# Ochin Pakhi
 
-CMS for Ochin Pakhi website
+Ochin Pakhi Website
+
+
+     :`.            .--._
+      `.`-.        /  ',-""""'
+        `. ``~-._.'_."/
+          `~-._ .` `~;
+               ;.    /
+              /     /
+         ,_.-';_,.'`
+          `"-;`/
+            ,'`
