@@ -38,13 +38,13 @@
     document.addEventListener('DOMContentLoaded', async function() {
       const hamburger = document.querySelector('.hamburger');
       const mobileNav = document.querySelector('.mobile-nav');
+      const grid = document.querySelector('.grid');
+      const loadedOrders = new Set(); // To track loaded orders
+      let currentOrder = 2;
 
       hamburger.addEventListener('click', function() {
         mobileNav.classList.toggle('show');
       });
-      
-      const grid = document.querySelector('.grid');
-      let currentOrder = 2;
 
       async function fetchOrders(order) {
         const url = `https://strapi-ru2c.onrender.com/api/events/${order}?populate=poster`;
@@ -76,15 +76,14 @@
         // Load the first three divs initially
         for (let i = 0; i < 3; i++) {
           const { imageUrl, title, description } = await fetchOrders(currentOrder);
-          if (imageUrl) {
+          if (imageUrl && !loadedOrders.has(imageUrl)) {
             createDivForOrder(imageUrl, title, description);
+            loadedOrders.add(imageUrl); // Track loaded image URL
             currentOrder++;
           } else {
             break; // No more content to load
           }
         }
-
-        // Check and display scroll icon if more content is available
         showScrollIconIfMoreContentAvailable();
       }
 
@@ -93,7 +92,6 @@
         eventDiv.classList.add('event-div');
 
         const image = document.createElement('img');
-
         image.src = 'https://strapi-ru2c.onrender.com' + imageUrl;
         image.alt = "Event Poster";
         image.style.width = '100%'; // Ensure the image fits the container
@@ -110,7 +108,6 @@
         descriptionElement.textContent = description;
         
         eventDiv.appendChild(titleElement);
-        eventDiv.appendChild(image);
         eventDiv.appendChild(descriptionElement);
 
         grid.appendChild(eventDiv);
@@ -135,8 +132,9 @@
 
         if (scrollPosition >= pageHeight * 0.8) {
           const { imageUrl, title, description } = await fetchOrders(currentOrder);
-          if (imageUrl) {
+          if (imageUrl && !loadedOrders.has(imageUrl)) {
             createDivForOrder(imageUrl, title, description);
+            loadedOrders.add(imageUrl); // Track loaded image URL
             currentOrder++;
           }
           showScrollIconIfMoreContentAvailable();

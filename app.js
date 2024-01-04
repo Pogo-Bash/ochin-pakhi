@@ -5,8 +5,6 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Helmet middleware for securing HTTP headers
-
 
 // Limit maximum request size
 app.use(express.json({ limit: '10kb' }));
