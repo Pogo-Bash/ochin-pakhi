@@ -67,21 +67,35 @@
       }
 
       async function fetchInitialOrders() {
-        try {
-          const apiToken = await apiTokenPromise;
-          for (let i = 1; i <= 6; i++) {
-            const order = i;
-            const response = await sendAPIRequest(order, apiToken);
-            if (response && response.title && response.videoLink) {
-              createDivForOrder(response, true);
-              currentOrder = order;
-            }
+  try {
+    const apiToken = await apiTokenPromise;
+    const loadedVideos = new Set(); // To store loaded video URLs
+
+    for (let i = 1; i <= 6; i++) {
+      const order = i;
+      const response = await sendAPIRequest(order, apiToken);
+      if (response && response.title && response.videoLink) {
+        const embedUrl = getEmbedUrl(response.videoLink);
+
+        // Check if the video URL already exists, and delete if found
+        if (loadedVideos.has(embedUrl)) {
+          const existingDiv = document.querySelector(`div iframe[src="${embedUrl}"]`);
+          if (existingDiv) {
+            existingDiv.parentElement.remove();
           }
-          showScrollIconIfMoreContentAvailable();
-        } catch (error) {
-          console.error("Error fetching initial orders:", error);
+        } else {
+          createDivForOrder(response, true);
+          loadedVideos.add(embedUrl);
         }
+
+        currentOrder = order;
       }
+    }
+    showScrollIconIfMoreContentAvailable();
+  } catch (error) {
+    console.error("Error fetching initial orders:", error);
+  }
+}
 
       function createDivForOrder(response, prepend) {
         const title = response.title;

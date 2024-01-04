@@ -38,23 +38,23 @@
     document.addEventListener('DOMContentLoaded', async function() {
       const hamburger = document.querySelector('.hamburger');
       const mobileNav = document.querySelector('.mobile-nav');
-
+      const grid = document.querySelector('.grid');
+      const loadedImages = new Set();
+      let currentOrder = 1;
+  
       hamburger.addEventListener('click', function() {
         mobileNav.classList.toggle('show');
       });
-
-      const grid = document.querySelector('.grid');
-      let currentOrder = 1;
-
+  
       async function fetchOrders(order) {
         const url = `https://strapi-ru2c.onrender.com/api/ochin-photos/${order}?populate=poster`;
-
+  
         try {
           const response = await fetch(url);
           if (response.ok) {
             const data = await response.json();
             const imageUrl = data.data.attributes.poster?.data?.attributes.url || '';
-
+  
             return imageUrl;
           } else {
             console.error("API request failed for order", order, ". Error:", response.status);
@@ -65,73 +65,70 @@
           return null;
         }
       }
-
+  
       async function loadInitialContent() {
-        // Load the first three divs initially
         for (let i = 0; i < 3; i++) {
           const imageUrl = await fetchOrders(currentOrder);
           if (imageUrl) {
-            createDivForOrder(imageUrl);
+            if (!loadedImages.has(imageUrl)) {
+              createDivForOrder(imageUrl);
+              loadedImages.add(imageUrl);
+            }
             currentOrder++;
           } else {
-            break; // No more content to load
+            break;
           }
         }
-
-        // Check and display scroll icon if more content is available
         showScrollIconIfMoreContentAvailable();
       }
-
+  
       function createDivForOrder(imageUrl) {
         const imageDiv = document.createElement('div');
         imageDiv.classList.add('image-div');
-
+  
         const image = document.createElement('img');
         image.src = 'https://strapi-ru2c.onrender.com' + imageUrl;
         image.alt = "Event Poster";
         imageDiv.appendChild(image);
-
+  
         const newDiv = document.createElement('div');
         newDiv.classList.add('content');
         newDiv.appendChild(imageDiv);
-
+  
         grid.appendChild(newDiv);
       }
-
+  
       function showScrollIconIfMoreContentAvailable() {
         const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollPosition = window.scrollY;
-
-        if (scrollPosition + 1 >= pageHeight) {
-          const scrollIcon = document.querySelector('.scroll-icon');
-          scrollIcon.style.display = 'block';
-        } else {
-          const scrollIcon = document.querySelector('.scroll-icon');
-          scrollIcon.style.display = 'none';
-        }
+  
+        const scrollIcon = document.querySelector('.scroll-icon');
+        scrollIcon.style.display = (scrollPosition + 1 >= pageHeight) ? 'block' : 'none';
       }
-
+  
       window.addEventListener("scroll", async function() {
         const scrollPosition = window.scrollY;
         const pageHeight = document.documentElement.scrollHeight - window.innerHeight;
-
+  
         if (scrollPosition >= pageHeight * 0.8) {
           for (let i = 0; i < 3; i++) {
             const imageUrl = await fetchOrders(currentOrder);
             if (imageUrl) {
-              createDivForOrder(imageUrl);
+              if (!loadedImages.has(imageUrl)) {
+                createDivForOrder(imageUrl);
+                loadedImages.add(imageUrl);
+              }
               currentOrder++;
             } else {
-              break; // No more content to load
+              break;
             }
           }
           showScrollIconIfMoreContentAvailable();
         }
       });
-
-      // Call the function to load initial content
+  
       loadInitialContent();
     });
   </script>
-</body>
+  </body>
 </html>
