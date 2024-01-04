@@ -110,7 +110,12 @@
         eventDiv.appendChild(titleElement);
         eventDiv.appendChild(descriptionElement);
 
-        grid.appendChild(eventDiv);
+        const firstDiv = grid.firstChild; // Get the first div currently in the grid
+  if (firstDiv) {
+    grid.insertBefore(eventDiv, firstDiv); // Insert new div before the first div
+  } else {
+    grid.appendChild(eventDiv); // If no divs exist, simply append the new one
+  }
       }
 
       function showScrollIconIfMoreContentAvailable() {

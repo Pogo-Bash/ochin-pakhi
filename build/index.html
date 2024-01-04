@@ -122,7 +122,7 @@ async function checkAudioFile(audio) {
           const response = await fetch(url);
           if (response.ok) {
             const responseData = await response.json();
-            const latestEvent = responseData.data[0];
+            const latestEvent = responseData.data.length > 0 ? responseData.data[responseData.data.length - 1] : null;
             const imageUrl = latestEvent.attributes.poster?.data?.attributes?.url || '';
             const title = latestEvent.attributes.title || '';
             const description = latestEvent.attributes.description || '';
