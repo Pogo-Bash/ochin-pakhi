@@ -54,6 +54,11 @@
         </ul>
       </div>
     </div>
+
+
+  <div class="info-icon">
+    <span class="tooltip">ℹ</span>
+  </div>
   </main>
 
   <script>
@@ -65,6 +70,14 @@
         mobileNav.classList.toggle('show');
       });
     });
+
+    const emailAddress = 'swapnanildasgupta9@gmail.com';
+
+document.addEventListener('DOMContentLoaded', function() {f
+  const tooltip = document.querySelector('.tooltip');
+  tooltip.innerHTML = `Developed by Swap <br> Email: <a href="mailto:${emailAddress}">${emailAddress}</a>`;
+});
+
   </script>
 </body>
 
