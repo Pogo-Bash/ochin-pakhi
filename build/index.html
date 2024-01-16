@@ -6,10 +6,21 @@
   <meta name="description" content="This page is about the Bengali band Ochin Pakhi.">
   <meta name="keywords" content="Ochin Pakhi, Bengali band, music, Bangladesh, Joy bangla, evanston bengali band, bengal, West Bengal">
   <title>Ochin Pakhi</title>
+  <link href="assets/ochingroupedited.png" rel="preload" as="image">
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100&display=swap" rel="stylesheet">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-startup-image" href="/assets/folkinstru.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <meta name="theme-color" content="#c7a024">
   <style>
 
   </style>
@@ -173,7 +184,7 @@ async function checkAudioFile(audio) {
 
 
       async function getApiToken() {
-        const tokenResponse = await fetch('/api');
+        const tokenResponse = await fetch('');
         const token = await tokenResponse.text();
         return token.trim();
       }
