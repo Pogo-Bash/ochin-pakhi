@@ -1,12 +1,12 @@
 
 {
-    "name": "Your App Name",
-    "short_name": "Short Name",
-    "description": "Your app description",
+    "name": "Ochin Pakhi",
+    "short_name": "Ochin Pakhi",
+    "description": "Ochin Pakhi",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#000000",
+    "background_color": "#f2e4c8",
+    "theme_color": "#c7a024",
      "icons": [
     {
         "src": "/assets/ochinlogo.png",
