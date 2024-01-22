@@ -9,7 +9,7 @@
     "theme_color": "#c7a024",
      "icons": [
     {
-        "src": "/assets/ochinlogo.svg",
+        "src": "/assets/ochinlogo.png",
         "sizes": "192x192",
         "type": "image/png"
     },
